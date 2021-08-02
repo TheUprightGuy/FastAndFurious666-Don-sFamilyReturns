@@ -11,7 +11,9 @@ public class Bezier_Spline : MonoBehaviour
 	LineRenderer lineRenderer;
 	public Transform pointsParent;
 
-	public bool inheritPoints = false;
+	public bool inheritPoints = true;
+	public bool accurateEnds = true;
+	int prevCount = 0;
 	void Start()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
@@ -27,13 +29,20 @@ public class Bezier_Spline : MonoBehaviour
         {
 			pointsParent = transform;
         }
-		if (controlPoints.Count != pointsParent.childCount && inheritPoints)
+		if (prevCount != pointsParent.childCount && inheritPoints)
 		{
 			controlPoints.Clear();
 			foreach (Transform child in pointsParent)
 			{
 				controlPoints.Add(child.gameObject);
 			}
+
+            if (accurateEnds)
+            {
+				controlPoints.Insert(0, controlPoints[0]);
+				controlPoints.Insert(controlPoints.Count-1, controlPoints[controlPoints.Count-1]);
+            }
+			prevCount = pointsParent.childCount;
 		}
 
 		if (null == lineRenderer || controlPoints == null || controlPoints.Count < 3)

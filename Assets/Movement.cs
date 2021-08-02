@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Movement : MonoBehaviour
 {
@@ -9,14 +10,31 @@ public class Movement : MonoBehaviour
     public Transform car;
     public float carRotation = 0.0f;
 
+
+    public float angle;
+
+    List<TrailRenderer> skidMarks = new List<TrailRenderer>();
+    List<ParticleSystem> skidClouds = new List<ParticleSystem>();
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        foreach(TrailRenderer n in GetComponentsInChildren<TrailRenderer>())
+        {
+            skidMarks.Add(n);
+        }
+        foreach (ParticleSystem n in GetComponentsInChildren<ParticleSystem>())
+        {
+            skidClouds.Add(n);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
+
+
         if (Input.GetKey(KeyCode.Space))
         {
             if (rb.velocity.magnitude > 0)
@@ -36,6 +54,8 @@ public class Movement : MonoBehaviour
 
         carRotation = Mathf.Clamp(carRotation, -20.0f, 20.0f);
         car.localRotation = Quaternion.Euler(0, carRotation, 0);
+        ToggleSkids(angle > 40.0f);
+
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -54,6 +74,20 @@ public class Movement : MonoBehaviour
         else
         {
             carRotation = Mathf.Lerp(carRotation, 0, Time.deltaTime * 3.0f);
+        }
+    }
+
+    void ToggleSkids(bool _toggle)
+    {
+        foreach(TrailRenderer n in skidMarks)
+        {
+            n.emitting = _toggle;
+        }
+
+        foreach (ParticleSystem n in skidClouds)
+        {
+            n.enableEmission = _toggle;
+            n.transform.localRotation = Quaternion.Euler(new Vector3(270 - car.localRotation.eulerAngles.y * 3.0f, -90.0f, 90.0f));
         }
     }
 }

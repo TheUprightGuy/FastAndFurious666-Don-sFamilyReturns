@@ -4,12 +4,32 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    Rigidbody rb;
+    public float speedForce;
+    public float maxSpeed;
+
+    public float velocity;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        velocity = rb.velocity.magnitude;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+                rb.AddForce(transform.forward * speedForce);
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
-            transform.position += transform.forward * Time.deltaTime;
+            if (rb.velocity.magnitude > 0)
+                rb.velocity *= (1 - Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.A))

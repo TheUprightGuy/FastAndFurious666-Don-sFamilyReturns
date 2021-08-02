@@ -4,14 +4,16 @@ using System.Collections.Generic;
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
+    float angle;
+
     public float speedForce;
     public float maxSpeed;
 
     public Transform car;
     public float carRotation = 0.0f;
 
-
-    public float angle;
+    public Transform targetPos;
+    float maxDistance;
 
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
     List<ParticleSystem> skidClouds = new List<ParticleSystem>();
@@ -27,6 +29,11 @@ public class Movement : MonoBehaviour
         {
             skidClouds.Add(n);
         }
+    }
+
+    private void Start()
+    {
+        maxDistance = Vector3.Distance(transform.position, targetPos.position);
     }
 
     // Update is called once per frame
@@ -75,6 +82,9 @@ public class Movement : MonoBehaviour
         {
             carRotation = Mathf.Lerp(carRotation, 0, Time.deltaTime * 3.0f);
         }
+
+        CallbackHandler.instance.UpdateSpeedometer(rb.velocity.magnitude, maxSpeed);
+        CallbackHandler.instance.UpdateProgress(Vector3.Distance(transform.position, targetPos.position), maxDistance);
     }
 
     void ToggleSkids(bool _toggle)

@@ -3,21 +3,25 @@ using System.Collections.Generic;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rb;
-    float angle;
 
+    [Header("Setup Variables")]
+    public Transform car;
+    [Header("Speed Variables")]
     public float speedForce;
     public float maxSpeed;
-
-    public Transform car;
-    public float carRotation = 0.0f;
-
+    [Header("Objective Tracking - TEMP")]
     public Transform targetPos;
     float maxDistance;
 
+    // Local Variables
+    Rigidbody rb;
+    float angle;
+    float carRotation = 0.0f;
+    // Skid Marks + Dust PFX
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
     List<ParticleSystem> skidClouds = new List<ParticleSystem>();
 
+    #region Setup
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,18 +34,20 @@ public class Movement : MonoBehaviour
             skidClouds.Add(n);
         }
     }
+    #endregion Setup
 
     private void Start()
     {
+        // Get distance from objective - temp
         maxDistance = Vector3.Distance(transform.position, targetPos.position);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
 
-
+        // TEMP INPUT
         if (Input.GetKey(KeyCode.Space))
         {
             if (rb.velocity.magnitude > 0)
@@ -58,12 +64,13 @@ public class Movement : MonoBehaviour
                 rb.AddForce(-transform.forward * speedForce * Time.deltaTime * 0.75f);
         }
 
-
+        // Rotation & Skids
         carRotation = Mathf.Clamp(carRotation, -20.0f, 20.0f);
         car.localRotation = Quaternion.Euler(0, carRotation, 0);
         ToggleSkids(angle > 40.0f);
 
 
+        // TEMP INPUT
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(-Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
@@ -83,10 +90,12 @@ public class Movement : MonoBehaviour
             carRotation = Mathf.Lerp(carRotation, 0, Time.deltaTime * 3.0f);
         }
 
+        // UPDATE UI ELEMENTS
         CallbackHandler.instance.UpdateSpeedometer(rb.velocity.magnitude, maxSpeed);
         CallbackHandler.instance.UpdateProgress(Vector3.Distance(transform.position, targetPos.position), maxDistance);
     }
 
+    // Toggle on Skids & PFX
     void ToggleSkids(bool _toggle)
     {
         foreach(TrailRenderer n in skidMarks)

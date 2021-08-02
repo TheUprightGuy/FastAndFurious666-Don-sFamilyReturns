@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CallbackHandler : MonoBehaviour
 {
+    #region Singleton Setup
     public static CallbackHandler instance;
-
     private void Awake()
     {
         if (instance != null)
@@ -17,7 +17,9 @@ public class CallbackHandler : MonoBehaviour
         }
         instance = this;
     }
+    #endregion Singleton Setup
 
+    #region UICallbacks
     public Action<float, float> updateSpeedometer;
     public void UpdateSpeedometer(float _speed, float _maxSpeed)
     {
@@ -31,4 +33,5 @@ public class CallbackHandler : MonoBehaviour
         if (updateProgress != null)
             updateProgress(_distance, _maxDistance);
     }
+    #endregion UICallbacks
 }

@@ -343,7 +343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4101a0deb8f9ff149bccd81cf20c5b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {fileID: 1692820384}
 --- !u!1 &320093747
 GameObject:
   m_ObjectHideFlags: 0
@@ -11575,10 +11574,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcbc3b044ad9254881e22b46c7201aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 816474561}
   speedForce: 1000
   maxSpeed: 30
-  car: {fileID: 816474561}
-  carRotation: 0
   targetPos: {fileID: 53213686}
 --- !u!65 &9031447018896962492
 BoxCollider:

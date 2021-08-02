@@ -19,11 +19,11 @@ public class Bezier_Spline : MonoBehaviour
 		lineRenderer = GetComponent<LineRenderer>();
 		lineRenderer.useWorldSpace = true;
 
-        
+		
 	}
 
 
-	void Update()
+	public void CreateSpline()
 	{
         if (pointsParent == null)
         {

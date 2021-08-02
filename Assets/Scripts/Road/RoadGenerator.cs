@@ -6,7 +6,9 @@ public class RoadGenerator : MonoBehaviour
 {
     [Header("Dependencies")]
     public Transform pointsParent = null;
+    public Bezier_Spline RoadSpline = null;
 
+    public Transform EndPoint = null;
     [Header("Sizing")]
     public int SegmentCount = 20;
     public float DistanceBetweenSegments = 20.0f;
@@ -19,6 +21,11 @@ public class RoadGenerator : MonoBehaviour
     void Start()
     {
         BuildRoad();
+        
+        if (RoadSpline != null)
+        {
+            RoadSpline.CreateSpline();
+        }
     }
 
     // Update is called once per frame
@@ -50,8 +57,15 @@ public class RoadGenerator : MonoBehaviour
 
             lastPoint.x += rangeToMove;
 
-            GameObject newObj = Instantiate(new GameObject(), pointsParent);
+            GameObject newObj = new GameObject();
+            newObj.name = i.ToString();
+            newObj.transform.parent = pointsParent;
             newObj.transform.localPosition = lastPoint;
+        }
+
+        if (EndPoint != null)
+        {
+            EndPoint.position = pointsParent.GetChild(pointsParent.childCount - 1).transform.position;
         }
     }    
 }

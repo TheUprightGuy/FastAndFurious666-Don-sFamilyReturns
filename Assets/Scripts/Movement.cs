@@ -105,8 +105,13 @@ public class Movement : MonoBehaviour
 
         foreach (ParticleSystem n in skidClouds)
         {
-            n.enableEmission = _toggle;
-            n.transform.localRotation = Quaternion.Euler(new Vector3(270 - car.localRotation.eulerAngles.y * 3.0f, -90.0f, 90.0f));
+            if (_toggle)
+            {
+                n.Play();
+                n.transform.localRotation = Quaternion.Euler(new Vector3(270 - car.localRotation.eulerAngles.y * 3.0f, -90.0f, 90.0f));
+                return;
+            }
+            n.Stop();
         }
     }
 }

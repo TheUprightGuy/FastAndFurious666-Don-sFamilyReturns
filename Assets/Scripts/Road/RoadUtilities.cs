@@ -9,6 +9,78 @@ public class RoadUtilities : MonoBehaviour
     LineRenderer LR => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
 
     /// <summary>
+    /// Gets the total world length of the line
+    /// </summary>
+    /// <returns>The length of the line</returns>
+    public float GetLengthOfLine()
+    {
+        float retLength = 0.0f;
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            retLength += Vector3.Distance(points[i], points[i + 1]);
+        }
+
+        return (retLength);
+    }
+
+    /// <summary>
+    /// Gets a points at <paramref name="_percentageAlongLine"/> percent along line
+    /// </summary>
+    /// <param name="_percentageAlongLine">The percentage along line, from 0.0f to 1.0f</param>
+    /// <returns>The point along the line, Vector3.zero will be returned with an invalid percentage</returns>
+    public Vector3 GetPointAlongLine(float _percentageAlongLine)
+    {
+        float distanceAim = GetLengthOfLine() * _percentageAlongLine;
+
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        float retLength = 0.0f;
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            float newLength = retLength + Vector3.Distance(points[i], points[i + 1]);
+
+            if (newLength >= distanceAim) //Then the desired point is between these two points
+            {
+                float amountAlongLine = distanceAim - newLength;
+                Vector3 dir = (points[i + 1] - points[i]).normalized;
+                return points[i] + (dir * amountAlongLine);
+            }
+            else
+            {
+                retLength = newLength;
+            }
+            
+        }
+
+        return (Vector3.zero);
+    }
+
+    public List<Vector3> GetPointsAtAngle(float _angle)
+    {
+        List<Vector3> retList = new List<Vector3>();
+
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        for (int i = 1; i < points.Length - 1; i++)
+        {
+            Vector3 dirA = (points[i - 1] - points[i]).normalized;
+            Vector3 dirB = (points[i + 1] - points[i]).normalized;
+
+            float angleBetween = 180.0f - Vector3.Angle(dirA, dirB);
+
+            if (angleBetween > _angle)
+            {
+                retList.Add(points[i]);
+            }
+        }
+        return retList;
+    }
+    /// <summary>
     /// Checks if the closest distance to <paramref name="_point"/> is within the width of the line
     /// </summary>
     /// <param name="_point">The point to check</param>

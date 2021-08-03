@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     Rigidbody rb;
     float angle;
     float carRotation = 0.0f;
+    bool reversing;
     // Skid Marks + Dust PFX
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
     List<ParticleSystem> skidClouds = new List<ParticleSystem>();
@@ -46,6 +47,7 @@ public class Movement : MonoBehaviour
     {
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
+        reversing = angle >= 90.0f;
 
         // TEMP INPUT
         if (Input.GetKey(KeyCode.Space))
@@ -73,14 +75,14 @@ public class Movement : MonoBehaviour
         // TEMP INPUT
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(-Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
+            transform.Rotate((reversing ? -1 : 1) * -Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
 
             carRotation -= Mathf.Clamp01(rb.velocity.magnitude / 10.0f);
             car.localRotation = Quaternion.Euler(0, carRotation, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
+            transform.Rotate((reversing ? -1 : 1) * Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
 
             carRotation += Mathf.Clamp01(rb.velocity.magnitude / 10.0f);
             car.localRotation = Quaternion.Euler(0, carRotation, 0);

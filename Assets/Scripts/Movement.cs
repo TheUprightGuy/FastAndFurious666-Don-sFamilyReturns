@@ -15,12 +15,12 @@ public class Movement : MonoBehaviour
 
     // Local Variables
     Rigidbody rb;
-    float angle;
+    public float angle;
     float carRotation = 0.0f;
     bool reversing;
     // Skid Marks + Dust PFX
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
-    List<ParticleSystem> skidClouds = new List<ParticleSystem>();
+    public List<ParticleSystem> skidClouds;
 
     #region Setup
     private void Awake()
@@ -29,10 +29,6 @@ public class Movement : MonoBehaviour
         foreach(TrailRenderer n in GetComponentsInChildren<TrailRenderer>())
         {
             skidMarks.Add(n);
-        }
-        foreach (ParticleSystem n in GetComponentsInChildren<ParticleSystem>())
-        {
-            skidClouds.Add(n);
         }
     }
     #endregion Setup
@@ -47,7 +43,8 @@ public class Movement : MonoBehaviour
     {
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
-        reversing = angle >= 90.0f;
+        //reversing = angle > 115.0f;
+        reversing = false;
 
         // TEMP INPUT
         if (Input.GetKey(KeyCode.Space))
@@ -62,6 +59,8 @@ public class Movement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            reversing = true;
+
             if (rb.velocity.magnitude < maxSpeed)
                 rb.AddForce(-transform.forward * speedForce * Time.deltaTime * 0.75f);
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3051055074655195416}
   - component: {fileID: 1074402037873991046}
+  - component: {fileID: 7211788734733323655}
   m_Layer: 0
   m_Name: TireStack
   m_TagString: Untagged
@@ -48,6 +49,20 @@ CapsuleCollider:
   m_Height: 2.865055
   m_Direction: 1
   m_Center: {x: 0, y: 0.67026854, z: -0.75896454}
+--- !u!114 &7211788734733323655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5460398438419730074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea515905abab3d34185921785f598635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2510822058409842071, guid: e42a6a2b8baa89c4c87cd3a97a6bb979,
+    type: 3}
 --- !u!1001 &6240507268704180355
 PrefabInstance:
   m_ObjectHideFlags: 0

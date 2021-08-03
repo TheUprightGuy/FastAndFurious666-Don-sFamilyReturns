@@ -7,8 +7,12 @@ public class RoadGenerator : MonoBehaviour
     [Header("Dependencies")]
     public Transform pointsParent = null;
     public Bezier_Spline RoadSpline = null;
-
+    public RoadUtilities RoadUtils = null;
     public Transform EndPoint = null;
+
+    [Header("Prefabs")]
+    public GameObject tireStack;
+
     [Header("Sizing")]
     public int SegmentCount = 20;
     public float DistanceBetweenSegments = 20.0f;
@@ -26,6 +30,12 @@ public class RoadGenerator : MonoBehaviour
         {
             RoadSpline.CreateSpline();
         }
+
+        if (RoadUtils != null)
+        {
+
+            AddAccesories();
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +44,26 @@ public class RoadGenerator : MonoBehaviour
         
     }
 
+    void AddAccesories()
+    {
+        List<int> indexList = RoadUtils.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
+
+        Vector3[] points = new Vector3[RoadUtils.LR.positionCount];
+        RoadUtils.LR.GetPositions(points);
+
+        foreach (int i in indexList)
+        {
+            Vector3 dir = (points[i - 1] - points[i]).normalized;
+            Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
+            Vector3 right = -left;
+
+            float distToEdge = 4.0f;
+            GameObject a = Instantiate(tireStack, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
+            a.transform.forward = left;
+            a = Instantiate(tireStack, points[i] + (right * distToEdge), Quaternion.identity, this.transform);
+            a.transform.forward = right;
+        }
+    }
     void BuildRoad()
     {
         if (pointsParent == null)

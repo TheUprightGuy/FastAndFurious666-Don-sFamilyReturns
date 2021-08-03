@@ -6,7 +6,8 @@ public class RoadUtilities : MonoBehaviour
 {
     public LineRenderer lineRenderer;
 
-    LineRenderer LR => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
+    [HideInInspector]
+    public LineRenderer LR => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
 
     /// <summary>
     /// Gets the total world length of the line
@@ -76,6 +77,28 @@ public class RoadUtilities : MonoBehaviour
             if (angleBetween > _angle)
             {
                 retList.Add(points[i]);
+            }
+        }
+        return retList;
+    }
+
+    public List<int> GetIndexesAtAngle(float _angle)
+    {
+        List<int> retList = new List<int>();
+
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        for (int i = 1; i < points.Length - 1; i++)
+        {
+            Vector3 dirA = (points[i - 1] - points[i]).normalized;
+            Vector3 dirB = (points[i + 1] - points[i]).normalized;
+
+            float angleBetween = 180.0f - Vector3.Angle(dirA, dirB);
+
+            if (angleBetween > _angle)
+            {
+                retList.Add(i);
             }
         }
         return retList;

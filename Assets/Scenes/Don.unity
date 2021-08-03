@@ -6068,6 +6068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816474561}
   - component: {fileID: 816474562}
+  - component: {fileID: 816474563}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -6106,6 +6107,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dist: 0
   angle: 3
+  RoadUtils: {fileID: 1300053012}
+--- !u!114 &816474563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816474560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8ee4019b9a2354da1a77f3e3c94030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   RoadUtils: {fileID: 1300053012}
 --- !u!1 &822748252
 GameObject:
@@ -6428,7 +6442,7 @@ MonoBehaviour:
   - {fileID: 1389220828}
   - {fileID: 1389220828}
   color: {r: 1, g: 1, b: 1, a: 1}
-  width: 8
+  width: 20
   numberOfPoints: 20
   pointsParent: {fileID: 1300053008}
   inheritPoints: 1
@@ -6613,7 +6627,7 @@ LineRenderer:
     numCornerVertices: 1
     numCapVertices: 0
     alignment: 1
-    textureMode: 3
+    textureMode: 0
     shadowBias: 0.5
     generateLightingData: 1
   m_UseWorldSpace: 1
@@ -12389,75 +12403,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &5616389338656616700
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.827004
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 28.950005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3051055074655195416, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5460398438419730074, guid: 4fee78ae2db9847479166faf2ce6c441,
-        type: 3}
-      propertyPath: m_Name
-      value: TireStack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4fee78ae2db9847479166faf2ce6c441, type: 3}
 --- !u!23 &5716448869936522549
 MeshRenderer:
   m_ObjectHideFlags: 0

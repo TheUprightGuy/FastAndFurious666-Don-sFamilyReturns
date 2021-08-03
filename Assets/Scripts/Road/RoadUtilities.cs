@@ -62,10 +62,10 @@ public class RoadUtilities : MonoBehaviour
 
 
     /// <summary>
-    /// Gets points along the line which have a greater angle than <paramref name="_angle"/>
+    /// Gets the points of segments with a greater angle than <paramref name="_angle"/>
     /// </summary>
-    /// <param name="_angle">The angle to compare</param>
-    /// <returns>Points list that are above the given angle</returns>
+    /// <param name="_angle">The comparison angle</param>
+    /// <returns>A list of points</returns>
     public List<Vector3> GetPointsAtAngle(float _angle)
     {
         List<Vector3> retList = new List<Vector3>();
@@ -89,10 +89,10 @@ public class RoadUtilities : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets indexes along the line which have a greater angle than <paramref name="_angle"/>
+    /// Gets the indexes of segments with a greater angle than <paramref name="_angle"/>
     /// </summary>
-    /// <param name="_angle">The angle to compare</param>
-    /// <returns>indexes list that are above the given angle</returns>
+    /// <param name="_angle">The comparison angle</param>
+    /// <returns>A list of indexes</returns>
     public List<int> GetIndexesAtAngle(float _angle)
     {
         List<int> retList = new List<int>();
@@ -154,6 +154,53 @@ public class RoadUtilities : MonoBehaviour
         }
 
         return closestDist;
+    }
+
+
+    public Vector3 GetPointAheadOnTrack(Vector3 _point, float distAhead)
+    {
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        Vector2 point2D = new Vector2(_point.x, _point.z);
+
+        float closestDist = Mathf.Infinity;
+        Vector2 closestPoint = Vector2.zero;
+        int lastIndexPoint = 0;
+        for (int i = 0; i < points.Length - 1; i++) //Avoid overflow with plus one
+        {
+            Vector2 pointA = new Vector2(points[i].x, points[i].z);
+            Vector2 pointB = new Vector2(points[i + 1].x, points[i + 1].z);
+
+            Vector2 point = FindNearestPointOnLine(pointA, pointB, point2D);
+
+            float dist = Vector2.Distance(point2D, point);
+            if (dist < closestDist) //if closer
+            {
+                closestDist = dist;
+                closestPoint = point;
+                lastIndexPoint = i;
+            }
+        }
+
+        Vector3 retPoint = Vector3.zero;
+        float amountOfDistToIncrease = distAhead;
+        for (int i = lastIndexPoint; i < points.Length - 1; i++)
+        {
+            float nextDist = Vector3.Distance(points[i], points[i + 1]);
+
+            if ((amountOfDistToIncrease - nextDist) <= 0)//If now within the distances
+            {
+                Vector3 dir = (points[i + 1] - points[i]).normalized;
+                retPoint = points[i] + (dir * amountOfDistToIncrease);
+                break;
+            }
+            else
+            {
+                amountOfDistToIncrease -= nextDist;
+            }
+        }
+        return retPoint;
     }
 
     /// <summary>

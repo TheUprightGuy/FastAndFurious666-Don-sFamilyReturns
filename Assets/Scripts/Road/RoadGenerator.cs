@@ -57,7 +57,7 @@ public class RoadGenerator : MonoBehaviour
             Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
             Vector3 right = -left;
 
-            float distToEdge = 4.0f;
+            float distToEdge = RoadUtils.LR.startWidth / 2;
             GameObject a = Instantiate(tireStack, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
             a.transform.forward = left;
             a = Instantiate(tireStack, points[i] + (right * distToEdge), Quaternion.identity, this.transform);

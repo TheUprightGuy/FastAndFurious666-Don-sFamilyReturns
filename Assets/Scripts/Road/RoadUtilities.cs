@@ -28,10 +28,10 @@ public class RoadUtilities : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets a points at <paramref name="_percentageAlongLine"/> percent along line
+    /// Gets points at <paramref name="_percentageAlongLine"/> percent along line
     /// </summary>
     /// <param name="_percentageAlongLine">The percentage along line, from 0.0f to 1.0f</param>
-    /// <returns>The point along the line, Vector3.zero will be returned with an invalid percentage</returns>
+    /// <returns>The points along the line, Vector3.zero will be returned with an invalid percentage</returns>
     public Vector3 GetPointAlongLine(float _percentageAlongLine)
     {
         float distanceAim = GetLengthOfLine() * _percentageAlongLine;
@@ -60,6 +60,12 @@ public class RoadUtilities : MonoBehaviour
         return (Vector3.zero);
     }
 
+
+    /// <summary>
+    /// Gets points along the line which have a greater angle than <paramref name="_angle"/>
+    /// </summary>
+    /// <param name="_angle">The angle to compare</param>
+    /// <returns>Points list that are above the given angle</returns>
     public List<Vector3> GetPointsAtAngle(float _angle)
     {
         List<Vector3> retList = new List<Vector3>();
@@ -82,6 +88,11 @@ public class RoadUtilities : MonoBehaviour
         return retList;
     }
 
+    /// <summary>
+    /// Gets indexes along the line which have a greater angle than <paramref name="_angle"/>
+    /// </summary>
+    /// <param name="_angle">The angle to compare</param>
+    /// <returns>indexes list that are above the given angle</returns>
     public List<int> GetIndexesAtAngle(float _angle)
     {
         List<int> retList = new List<int>();

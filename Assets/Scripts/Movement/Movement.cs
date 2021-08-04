@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     float carRotation = 0.0f;
     bool reversing;
     CarAudio audio;
+    bool freeze = true;
     // Skid Marks + Dust PFX
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
     public List<ParticleSystem> skidClouds;
@@ -32,8 +33,27 @@ public class Movement : MonoBehaviour
     }
     #endregion Setup
 
+    private void Start()
+    {
+        CallbackHandler.instance.toggleFreeze += ToggleFreeze;
+        audio.SetSkidding(false);
+    }
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.toggleFreeze -= ToggleFreeze;
+    }
+
+    public void ToggleFreeze(bool _toggle)
+    {
+        freeze = _toggle;
+    }
+
+
     void Update()
-    { 
+    {
+        if (freeze)
+            return;
+
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
         reversing = false;

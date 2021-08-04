@@ -58,4 +58,11 @@ public class CallbackHandler : MonoBehaviour
         if (setRocketTarget != null)
             setRocketTarget(_target);
     }
+
+    public Action<bool> toggleFreeze;
+    public void ToggleFreeze(bool _toggle)
+    {
+        if (toggleFreeze != null)
+            toggleFreeze(_toggle);
+    }
 }

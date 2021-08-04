@@ -24,6 +24,14 @@ public class AudioHandler : MonoBehaviour
     public AudioSource machineGun;
     public AudioSource flameThrower;
     public AudioSource rocketLauncher;
+    public AudioSource machineGunShoot;
+    public AudioSource flameThrowerShoot;
+    public AudioSource rocketLauncherShoot;
+    [Header("Countdown")]
+    public AudioSource three;
+    public AudioSource two;
+    public AudioSource one;
+    public AudioSource go;
 
     public void PlayAudio(string _command)
     {
@@ -59,8 +67,51 @@ public class AudioHandler : MonoBehaviour
                 engineUpgrade.PlayOneShot(engineUpgrade.clip);
                 break;
             }
+            case "Three":
+            {
+                three.PlayOneShot(three.clip);
+                break;
+            }
+            case "Two":
+            {
+                two.PlayOneShot(two.clip);
+                break;
+            }
+            case "One":
+            {
+                one.PlayOneShot(one.clip);
+                break;
+            }
+            case "Go":
+            {
+                go.PlayOneShot(go.clip);
+                break;
+            }
+            case "RocketLauncherShoot":
+            {
+                rocketLauncherShoot.PlayOneShot(rocketLauncherShoot.clip);
+                break;
+            }
+
             default:
                 break;
+        }
+    }
+
+    public void ToggleLoopingSound(string _string, bool _toggle)
+    {
+        switch (_string)
+        {
+            case "MachineGun":
+            {
+                machineGunShoot.volume = _toggle ? 1.0f : 0.0f;
+                break;
+            }
+            case "FlameThrower":
+            {
+                flameThrowerShoot.volume = _toggle ? 1.0f : 0.0f;
+                break;
+            }
         }
     }
 }

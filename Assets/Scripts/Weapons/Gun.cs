@@ -68,6 +68,7 @@ public class Gun : MonoBehaviour
                 {
                     if (target != null && currentCooldown <= 0.0f && ammo > 0)
                     {
+                        AudioHandler.instance.PlayAudio("RocketLauncherShoot");
                         ToggleParticles(true);
                         Instantiate(rocketPrefab, transform.position, transform.rotation, null).GetComponent<RocketProjectile>().SetTarget(GetComponentInParent<RocketTargeting>().targets[0].transform, damage);
                         currentCooldown = cooldown;
@@ -81,11 +82,13 @@ public class Gun : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.E) && ammo > 0.0f)
                 {
+                    AudioHandler.instance.ToggleLoopingSound(type.ToString(), true);
                     ToggleParticles(true);
                     ammo -= Time.deltaTime;
                     break;
                 }
                 ToggleParticles(false);
+                AudioHandler.instance.ToggleLoopingSound(type.ToString(), false);
             }
             return;
         }

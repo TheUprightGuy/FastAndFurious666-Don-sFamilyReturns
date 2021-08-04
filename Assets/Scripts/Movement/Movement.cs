@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
 
     // Local Variables
     Rigidbody rb;
-    public float angle;
+    float angle;
     float carRotation = 0.0f;
     bool reversing;
     // Skid Marks + Dust PFX
@@ -33,17 +33,10 @@ public class Movement : MonoBehaviour
     }
     #endregion Setup
 
-    private void Start()
-    {
-        // Get distance from objective - temp
-        //maxDistance = Vector3.Distance(transform.position, targetPos.position);
-    }
-
     void Update()
-    {
+    { 
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
-        //reversing = angle > 115.0f;
         reversing = false;
 
         // TEMP INPUT
@@ -79,7 +72,7 @@ public class Movement : MonoBehaviour
             carRotation -= Mathf.Clamp01(rb.velocity.magnitude / 10.0f);
             car.localRotation = Quaternion.Euler(0, carRotation, 0);
         }
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate((reversing ? -1 : 1) * Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
 
@@ -93,7 +86,12 @@ public class Movement : MonoBehaviour
 
         // UPDATE UI ELEMENTS
         CallbackHandler.instance.UpdateSpeedometer(rb.velocity.magnitude, maxSpeed);
-        //CallbackHandler.instance.UpdateProgress(Vector3.Distance(transform.position, targetPos.position), maxDistance);
+    }
+
+    private void FixedUpdate()
+    {
+        Quaternion rot = Quaternion.Euler(0, rb.rotation.eulerAngles.y, 0);
+        rb.rotation = rot;
     }
 
     // Toggle on Skids & PFX

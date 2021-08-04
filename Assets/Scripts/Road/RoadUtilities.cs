@@ -9,6 +9,7 @@ public class RoadUtilities : MonoBehaviour
     [HideInInspector]
     public LineRenderer LR => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
 
+    public float LineWidth => LR.startWidth / 2.0f;
     /// <summary>
     /// Gets the total world length of the line
     /// </summary>

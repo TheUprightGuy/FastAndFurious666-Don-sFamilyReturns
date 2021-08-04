@@ -19,6 +19,16 @@ public class CallbackHandler : MonoBehaviour
     }
     #endregion Singleton Setup
 
+    private void Start()
+    {
+        Invoke("Setup", 0.1f);
+    }
+
+    void Setup()
+    {
+        ToggleRocket(false);
+    }
+
     #region UICallbacks
     public Action<float, float> updateSpeedometer;
     public void UpdateSpeedometer(float _speed, float _maxSpeed)
@@ -33,5 +43,19 @@ public class CallbackHandler : MonoBehaviour
         if (updateProgress != null)
             updateProgress(_distance, _maxDistance);
     }
+
+    public Action<bool> toggleRocket;
+    public void ToggleRocket(bool _toggle)
+    {
+        if (toggleRocket != null)
+            toggleRocket(_toggle);
+    }
     #endregion UICallbacks
+
+    public Action<Transform> setRocketTarget;
+    public void SetRocketTarget(Transform _target)
+    {
+        if (setRocketTarget != null)
+            setRocketTarget(_target);
+    }
 }

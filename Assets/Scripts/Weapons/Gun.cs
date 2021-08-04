@@ -17,10 +17,17 @@ public class Gun : MonoBehaviour
 
     [Header("Weapon Attributes")]
     public GunType type;
-    // public float damage
-    // public int ammo
-    // public int maxAmmo
+    public GameObject rocketPrefab;
+    public float cooldown;
+    public float ammo;
+    public float maxAmmo;
+    public int damage;
 
+    // Local Variables
+    Transform target;
+    float currentCooldown;
+
+    #region Setup
     private void Awake()
     {
         foreach(ParticleSystem n in GetComponentsInChildren<ParticleSystem>())
@@ -28,16 +35,60 @@ public class Gun : MonoBehaviour
             particles.Add(n);
         }
     }
+    #endregion Setup
+
+    private void Start()
+    {
+        if (type == GunType.RocketLauncher)
+            CallbackHandler.instance.setRocketTarget += SetRocketTarget;
+
+        ammo = maxAmmo;
+    }
+    private void OnDestroy()
+    {
+        if (type == GunType.RocketLauncher)
+            CallbackHandler.instance.setRocketTarget -= SetRocketTarget;
+    }
+
+    public void SetRocketTarget(Transform _target)
+    {
+        target = _target;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E))
+        currentCooldown -= Time.deltaTime;
+
+        switch (type)
         {
-            ToggleParticles(true);
+            case GunType.RocketLauncher:
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (target != null && currentCooldown <= 0.0f && ammo > 0)
+                    {
+                        ToggleParticles(true);
+                        Instantiate(rocketPrefab, transform.position, transform.rotation, null).GetComponent<RocketProjectile>().SetTarget(GetComponentInParent<RocketTargeting>().targets[0].transform, damage);
+                        currentCooldown = cooldown;
+                        ammo--;
+                    }
+                }
+                ToggleParticles(false);
+                break;
+            }
+            default:
+            {
+                if (Input.GetKey(KeyCode.E) && ammo > 0.0f)
+                {
+                    ToggleParticles(true);
+                    ammo -= Time.deltaTime;
+                    break;
+                }
+                ToggleParticles(false);
+            }
             return;
         }
-        ToggleParticles(false);
     }
 
     void ToggleParticles(bool _toggle)
@@ -59,5 +110,38 @@ public class Gun : MonoBehaviour
     public void ToggleWeapon(GunType _type)
     {
         this.gameObject.SetActive(_type == type);
+
+        if (_type == type && type == GunType.RocketLauncher)
+        {
+            CallbackHandler.instance.ToggleRocket(_type == type);
+        }
+    }
+
+    public void UpgradeGun()
+    {
+        switch (type)
+        {
+            case GunType.MachineGun:
+                {
+                    damage += Mathf.RoundToInt(damage / 5.0f);
+                    maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
+                    ammo = maxAmmo;
+                    break;
+                }
+            case GunType.FlameThrower:
+                {
+                    maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
+                    ammo = maxAmmo;
+                    break;
+                }
+            case GunType.RocketLauncher:
+                {
+                    cooldown -= 0.2f;
+                    maxAmmo += 2;
+                    ammo = maxAmmo;
+                    break;
+                }
+        }
+
     }
 }

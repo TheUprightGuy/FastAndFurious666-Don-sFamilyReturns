@@ -11,8 +11,8 @@ public class RocketProjectile : MonoBehaviour
     // Local Variables
     Rigidbody rb;
     float speed;
-    // temp
-    public Transform target;
+    Transform target;
+    int damage;
 
     private void Awake()
     {
@@ -20,9 +20,10 @@ public class RocketProjectile : MonoBehaviour
         speed = baseSpeed;
     }
 
-    public void SetTarget(Transform _target)
+    public void SetTarget(Transform _target, int _damage)
     {
         target = _target;
+        damage = _damage;
     }
 
     // Update is called once per frame
@@ -41,6 +42,7 @@ public class RocketProjectile : MonoBehaviour
         Debug.Log("Collided with " + other.name);
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity, null);
         Destroy(explosion, 4.0f);
+        other.GetComponent<HealthAttribute>().TakeDamage(damage);
 
         Destroy(this.gameObject);
     }

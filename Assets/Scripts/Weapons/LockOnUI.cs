@@ -29,6 +29,7 @@ public class LockOnUI : MonoBehaviour
     private void Start()
     {
         CallbackHandler.instance.toggleRocket += ToggleRocket;
+        ToggleRocket(false);
     }
     private void OnDestroy()
     {

@@ -60,6 +60,8 @@ public class Gun : MonoBehaviour
     {
         currentCooldown -= Time.deltaTime;
 
+        CallbackHandler.instance.UpdateAmmo(ammo, maxAmmo);
+
         switch (type)
         {
             case GunType.RocketLauncher:

@@ -36,6 +36,12 @@ public class CallbackHandler : MonoBehaviour
         if (updateSpeedometer != null)
             updateSpeedometer(_speed, _maxSpeed);
     }
+    public Action<float, float> updateAmmo;
+    public void UpdateAmmo(float _ammo, float _maxAmmo)
+    {
+        if (updateAmmo != null)
+            updateAmmo(_ammo, _maxAmmo);
+    }
 
     public Action<float, float> updateProgress;
     public void UpdateProgress(float _distance, float _maxDistance)

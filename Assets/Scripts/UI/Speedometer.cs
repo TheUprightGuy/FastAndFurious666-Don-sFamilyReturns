@@ -5,15 +5,9 @@ using UnityEngine;
 public class Speedometer : MonoBehaviour
 {
     #region Setup
-    // Local Variables
-    TMPro.TextMeshProUGUI text;
-    UnityEngine.UI.Image speedometer;
-    // Get Local Variables
-    private void Awake()
-    {
-        text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        speedometer = GetComponentInChildren<UnityEngine.UI.Image>();
-    }
+    [Header("Setup Requirements")]
+    public UnityEngine.UI.Image speedometer;
+
     #endregion Setup
     #region Callbacks
     void Start()
@@ -28,7 +22,6 @@ public class Speedometer : MonoBehaviour
 
     public void UpdateSpeedometer(float _speed, float _maxSpeed)
     {
-        text.SetText(Mathf.RoundToInt(_speed * 2.5f).ToString() + "MPH");
         speedometer.fillAmount = _speed / _maxSpeed;
     }
 }

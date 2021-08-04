@@ -14,6 +14,7 @@ public class RocketTargeting : MonoBehaviour
     private void Start()
     {
         CallbackHandler.instance.toggleRocket += ToggleRocket;
+        ToggleRocket(false);
     }
     private void OnDestroy()
     {

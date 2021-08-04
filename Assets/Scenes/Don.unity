@@ -2818,6 +2818,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8525325376582310063, guid: 654f0bc7ba120964b97a1741057dd24e,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8525325376582310065, guid: 654f0bc7ba120964b97a1741057dd24e,
         type: 3}
       propertyPath: m_Name

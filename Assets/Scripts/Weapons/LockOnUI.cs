@@ -20,6 +20,7 @@ public class LockOnUI : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         image = GetComponent<Image>();
+        image.enabled = false;
 
         TurnOffText();
     }

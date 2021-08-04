@@ -5,6 +5,7 @@ public class Movement : MonoBehaviour
 {
     [Header("Setup Variables")]
     public Transform car;
+    public Material brakingMat;
     [Header("Speed Variables")]
     public float speedForce;
     public float maxSpeed;
@@ -36,10 +37,14 @@ public class Movement : MonoBehaviour
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
         reversing = false;
+        brakingMat.color = Color.white;
+
 
         // TEMP INPUT
         if (Input.GetKey(KeyCode.Space))
         {
+            brakingMat.color = Color.red;
+
             if (rb.velocity.magnitude > 0)
             {
                 rb.velocity *= (1 - Time.deltaTime);

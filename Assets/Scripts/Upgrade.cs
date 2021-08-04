@@ -16,10 +16,11 @@ public class Upgrade : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Movement temp = other.GetComponent<Movement>();
-
         // Temp to check if player
         if (temp)
         {
+            AudioHandler.instance.PlayAudio(type.ToString() + " Upgrade");
+
             switch (type)
             {
                 case UpgradeType.Chassis:

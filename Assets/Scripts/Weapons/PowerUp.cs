@@ -26,6 +26,7 @@ public class PowerUp : MonoBehaviour
         if (temp)
         {
             temp.EnableWeapon(type);
+            AudioHandler.instance.PlayAudio(type.ToString() + " Online");
             Destroy(this.gameObject);
         }
     }

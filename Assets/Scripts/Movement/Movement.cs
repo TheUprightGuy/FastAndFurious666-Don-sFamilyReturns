@@ -3,21 +3,18 @@ using System.Collections.Generic;
 
 public class Movement : MonoBehaviour
 {
-
     [Header("Setup Variables")]
     public Transform car;
     [Header("Speed Variables")]
     public float speedForce;
     public float maxSpeed;
-    [Header("Objective Tracking - TEMP")]
-    //public Transform targetPos;
-    //float maxDistance;
 
     // Local Variables
     Rigidbody rb;
     float angle;
     float carRotation = 0.0f;
     bool reversing;
+    CarAudio audio;
     // Skid Marks + Dust PFX
     List<TrailRenderer> skidMarks = new List<TrailRenderer>();
     public List<ParticleSystem> skidClouds;
@@ -26,6 +23,7 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audio = GetComponentInChildren<CarAudio>();
         foreach(TrailRenderer n in GetComponentsInChildren<TrailRenderer>())
         {
             skidMarks.Add(n);
@@ -43,7 +41,10 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             if (rb.velocity.magnitude > 0)
+            {
                 rb.velocity *= (1 - Time.deltaTime);
+                audio.SetSkidding(true);
+            }
         }
         else if (Input.GetKey(KeyCode.W) )
         {
@@ -61,7 +62,7 @@ public class Movement : MonoBehaviour
         // Rotation & Skids
         carRotation = Mathf.Clamp(carRotation, -20.0f, 20.0f);
         car.localRotation = Quaternion.Euler(0, carRotation, 0);
-        ToggleSkids(angle > 40.0f);
+        ToggleSkids(angle > 40.0f && rb.velocity.magnitude > 0.3f);
 
 
         // TEMP INPUT
@@ -86,6 +87,7 @@ public class Movement : MonoBehaviour
 
         // UPDATE UI ELEMENTS
         CallbackHandler.instance.UpdateSpeedometer(rb.velocity.magnitude, maxSpeed);
+        audio.UpdateEngine(rb.velocity.magnitude / maxSpeed);
     }
 
     private void FixedUpdate()
@@ -97,7 +99,9 @@ public class Movement : MonoBehaviour
     // Toggle on Skids & PFX
     void ToggleSkids(bool _toggle)
     {
-        foreach(TrailRenderer n in skidMarks)
+        audio.SetSkidding(_toggle);
+
+        foreach (TrailRenderer n in skidMarks)
         {
             n.emitting = _toggle;
         }
@@ -111,6 +115,17 @@ public class Movement : MonoBehaviour
                 return;
             }
             n.Stop();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Check if hit something destructible
+        HealthAttribute temp = collision.gameObject.GetComponent<HealthAttribute>();
+
+        if (temp)
+        {
+            audio.PlayCrashAudio(rb.velocity.magnitude / maxSpeed);
         }
     }
 }

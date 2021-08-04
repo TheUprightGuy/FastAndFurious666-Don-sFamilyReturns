@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 98742911}
   - component: {fileID: 98742910}
   - component: {fileID: 98742909}
+  - component: {fileID: 98742914}
   m_Layer: 3
   m_Name: Carl
   m_TagString: Untagged
@@ -322,6 +323,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98742914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98742908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea515905abab3d34185921785f598635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2510822058409842071, guid: e42a6a2b8baa89c4c87cd3a97a6bb979,
+    type: 3}
+  maxHealth: 20
+  health: 0
 --- !u!1 &426748342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,6 +1397,12 @@ Transform:
   m_Father: {fileID: 1750291728}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1700143779 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3909002573841314945, guid: 3e113f568bae91e4abfc4b670c84ddea,
+    type: 3}
+  m_PrefabInstance: {fileID: 782459348}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722948999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,7 +1791,7 @@ PrefabInstance:
         type: 3}
       propertyPath: TrackPoint
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1700143779}
     - target: {fileID: 8525325376910733632, guid: 654f0bc7ba120964b97a1741057dd24e,
         type: 3}
       propertyPath: startPoint

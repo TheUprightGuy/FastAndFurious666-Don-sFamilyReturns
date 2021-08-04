@@ -13,6 +13,7 @@ public class ProgressBarKeeper : MonoBehaviour
     RectTransform thisRect;
     [Header("Settings")]
     public int NumOfIncrements = 60;
+    public float percentDone;
 
     
     // Start is called before the first frame update
@@ -32,7 +33,7 @@ public class ProgressBarKeeper : MonoBehaviour
         float distanceTotal = Vector3.Distance(startPoint.position, endPoint.position);
         float currentDistance = Vector3.Distance(endPoint.position, TrackPoint.position);
 
-        float percentDone = currentDistance / distanceTotal;
+        percentDone = 1.0f - currentDistance / distanceTotal;
 
         int incrementsDone = Mathf.RoundToInt(NumOfIncrements * percentDone);
 

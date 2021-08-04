@@ -10,8 +10,8 @@ public class Movement : MonoBehaviour
     public float speedForce;
     public float maxSpeed;
     [Header("Objective Tracking - TEMP")]
-    public Transform targetPos;
-    float maxDistance;
+    //public Transform targetPos;
+    //float maxDistance;
 
     // Local Variables
     Rigidbody rb;
@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         // Get distance from objective - temp
-        maxDistance = Vector3.Distance(transform.position, targetPos.position);
+        //maxDistance = Vector3.Distance(transform.position, targetPos.position);
     }
 
     void Update()
@@ -93,7 +93,7 @@ public class Movement : MonoBehaviour
 
         // UPDATE UI ELEMENTS
         CallbackHandler.instance.UpdateSpeedometer(rb.velocity.magnitude, maxSpeed);
-        CallbackHandler.instance.UpdateProgress(Vector3.Distance(transform.position, targetPos.position), maxDistance);
+        //CallbackHandler.instance.UpdateProgress(Vector3.Distance(transform.position, targetPos.position), maxDistance);
     }
 
     // Toggle on Skids & PFX

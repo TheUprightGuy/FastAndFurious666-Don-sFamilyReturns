@@ -19,16 +19,29 @@ public class CarlAI : MonoBehaviour
     public LayerMask AvoidingLayers;
     
     Rigidbody rigidBody = null;
+    bool freeze = true;
+
+    public void ToggleFreeze(bool _toggle)
+    {
+        freeze = _toggle;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CallbackHandler.instance.toggleFreeze += ToggleFreeze;
     }
-
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.toggleFreeze -= ToggleFreeze;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (freeze)
+        {
+            return;
+        }
         ApplyMovement();
     }
 

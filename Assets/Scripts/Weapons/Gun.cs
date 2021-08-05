@@ -62,6 +62,15 @@ public class Gun : MonoBehaviour
 
         CallbackHandler.instance.UpdateAmmo(ammo, maxAmmo);
 
+        if (ammo <= 0.0f)
+        {
+            AudioHandler.instance.ToggleLoopingSound(type.ToString(), false);
+            AudioHandler.instance.PlayAudio("OutOfAmmo");
+            this.gameObject.SetActive(false);
+            ToggleParticles(false);
+            return;
+        }
+
         switch (type)
         {
             case GunType.RocketLauncher:

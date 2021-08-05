@@ -82,6 +82,7 @@ public class CarlAI : MonoBehaviour
         if (rigidBody.velocity.magnitude < MaxSpeed)
         {
             Vector3 moveDir = transform.forward;
+
             if (isHeadingForDisaster)
             {
                 Vector3 pos = RoadUtils.GetPointAheadOnTrack(transform.position, PredictionDistance);
@@ -89,6 +90,17 @@ public class CarlAI : MonoBehaviour
                 Vector3 dirToPredict = pos - transform.position;
                 moveDir += dirToPredict;
             }
+            else if(hostile)//Will only be hostile if not crashing
+            {
+                Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+
+                if (Vector3.Angle(dirToPlayer, transform.forward) < 90.0f) //If not in front ignore
+                {
+                    moveDir += dirToPlayer;
+                }
+            }
+
+
 
             moveDir = moveDir.normalized;
             rigidBody.AddForce(moveDir * MoveAcceleration);

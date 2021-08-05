@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3051055074655195416}
   - component: {fileID: 1074402037873991046}
   - component: {fileID: 7211788734733323655}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TireStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -61,7 +61,42 @@ public class RoadUtilities : MonoBehaviour
         return (Vector3.zero);
     }
 
+    /// <summary>
+    /// Gets points at <paramref name="_percentageAlongLine"/> percent along line
+    /// </summary>
+    /// <param name="_percentageAlongLine">The percentage along line, from 0.0f to 1.0f</param>
+    /// <returns>The points along the line, Vector3.zero will be returned with an invalid percentage</returns>
+    public void GetPointAlongLine(float _percentageAlongLine, out Vector3 direction, out Vector3 point)
+    {
+        float distanceAim = GetLengthOfLine() * _percentageAlongLine;
 
+        Vector3[] points = new Vector3[LR.positionCount];
+        LR.GetPositions(points);
+
+        float retLength = 0.0f;
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            float newLength = retLength + Vector3.Distance(points[i], points[i + 1]);
+
+            if (newLength >= distanceAim) //Then the desired point is between these two points
+            {
+                float amountAlongLine = distanceAim - newLength;
+                Vector3 dir = (points[i + 1] - points[i]).normalized;
+                point = points[i] + (dir * amountAlongLine);
+                direction = points[i] + (dir * amountAlongLine);
+                return ;
+            }
+            else
+            {
+                retLength = newLength;
+            }
+
+        }
+
+
+        point = Vector3.zero;
+        direction = Vector3.zero;
+    }
     /// <summary>
     /// Gets the points of segments with a greater angle than <paramref name="_angle"/>
     /// </summary>

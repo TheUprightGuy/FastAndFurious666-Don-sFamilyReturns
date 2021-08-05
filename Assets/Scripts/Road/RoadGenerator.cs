@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RoadGenerator : MonoBehaviour
 {
     [Header("Dependencies")]
@@ -12,6 +13,32 @@ public class RoadGenerator : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject tireStack;
+
+    [System.Serializable]
+    public struct ItemDrop
+    {
+        public string Name;
+        [Space]
+        public GameObject ItemPrefab;
+        [Space]
+        [Min(0)]
+        public int NumberPlaced;
+
+        [Space]
+        public bool PlacedPointingAlongTrack;
+        [Space]
+
+        [Min(0.0f)]
+        public float MinPlacement;
+        public float MaxPlacement;
+
+        [Space]
+        [Min(1)]
+        public int MinNumberInRow;
+        public int MaxNumberInRow;
+    }
+
+    public List<ItemDrop> ItemDrops;
 
     [Header("Sizing")]
     public int SegmentCount = 20;
@@ -46,13 +73,55 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     void AddAccesories()
+    {
+        PlaceTires();
+
+        PlaceItemDrops();
+    }
+
+    void PlaceItemDrops()
+    {
+        foreach (ItemDrop item in ItemDrops)
+        {
+            for (int i = 0; i < item.NumberPlaced; i++)
+            {
+                float placementOnTrack = Random.Range(item.MinPlacement, item.MaxPlacement);
+
+                Vector3 pointOnTrack; //Point to place this on the track
+                Vector3 directionOnTrack; //Direction the track is going at this point
+
+                RoadUtils.GetPointAlongLine(placementOnTrack, out directionOnTrack, out pointOnTrack);
+
+                //Get the way to the left of the track
+                Vector3 left = Vector3.Cross(directionOnTrack.normalized, Vector3.up).normalized;
+                Vector3 right = -left; //Get opposing
+
+                //Get the start point for the row of item pickups
+                Vector3 startPoint = pointOnTrack + (left * RoadUtils.LineWidth);
+
+                //Figure the spacing each item pickup has to be apart
+                int rowCount = Random.Range(item.MinNumberInRow, item.MaxNumberInRow);
+                float itemSpacing = (RoadUtils.LineWidth * 2) / (rowCount + 1);
+                
+                for (int j = 0; j < rowCount; j++)
+                {
+                    float thisSpacing = (j + 1) * itemSpacing; //Start with a space
+                    Vector3 placementPoint = startPoint + (right * thisSpacing); //Go along from left to right
+
+                    GameObject temp = Instantiate(item.ItemPrefab, placementPoint, Quaternion.identity, this.transform);
+
+                    if (item.PlacedPointingAlongTrack)
+                    {
+                        temp.transform.forward = directionOnTrack;
+                    }
+                }
+            }
+        }
+    }
+    void PlaceTires()
     {
         List<int> indexList = RoadUtils.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
 

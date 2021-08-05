@@ -29,6 +29,10 @@ public class Bezier_Spline : MonoBehaviour
         {
 			pointsParent = transform;
         }
+        if (lineRenderer == null)
+        {
+			lineRenderer = GetComponent<LineRenderer>();
+		}
 		if (prevCount != pointsParent.childCount && inheritPoints)
 		{
 			controlPoints.Clear();
@@ -45,7 +49,7 @@ public class Bezier_Spline : MonoBehaviour
 			prevCount = pointsParent.childCount;
 		}
 
-		if (null == lineRenderer || controlPoints == null || controlPoints.Count < 3)
+		if (controlPoints == null || controlPoints.Count < 3)
 		{
 			return; // not enough points specified
 		}

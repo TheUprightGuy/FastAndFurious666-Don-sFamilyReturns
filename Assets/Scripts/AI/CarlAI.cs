@@ -89,16 +89,16 @@ public class CarlAI : MonoBehaviour
     Color GizmoColor = Color.blue;
     private void OnDrawGizmos()
     {
-        if (RoadUtils !=null)
-        {
-            Gizmos.color = GizmoColor;
-            Vector3 pos = RoadUtils.GetPointAheadOnTrack(transform.position, PredictionDistance);
-            Gizmos.DrawSphere(pos, 0.25f);
-            GizmoColor = Color.blue;
+        //if (RoadUtils !=null)
+        //{
+        //    Gizmos.color = GizmoColor;
+        //    Vector3 pos = RoadUtils.GetPointAheadOnTrack(transform.position, PredictionDistance);
+        //    Gizmos.DrawSphere(pos, 0.25f);
+        //    GizmoColor = Color.blue;
 
-            Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
-            Gizmos.DrawCube(projectedPos, Vector3.one * 0.5f);
+        //    Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
+        //    Gizmos.DrawCube(projectedPos, Vector3.one * 0.5f);
 
-        }
+        //}
     }
 }

@@ -24,17 +24,25 @@ public class RoadGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Building road...");
+        float timeSpent = Time.realtimeSinceStartup;
         BuildRoad();
-        
+        Debug.Log("Built road in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
+
         if (RoadSpline != null)
         {
+            Debug.Log("Building spline...");
+            timeSpent = Time.realtimeSinceStartup;
             RoadSpline.CreateSpline();
+            Debug.Log("Built spline in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
 
         if (RoadUtils != null)
         {
-
+            Debug.Log("Adding accesories...");
+            timeSpent = Time.realtimeSinceStartup;
             AddAccesories();
+            Debug.Log("Added accesories in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
     }
 

@@ -27,6 +27,7 @@ public class AudioHandler : MonoBehaviour
     public AudioSource machineGunShoot;
     public AudioSource flameThrowerShoot;
     public AudioSource rocketLauncherShoot;
+    public AudioSource outOfAmmo;
     [Header("Countdown")]
     public AudioSource three;
     public AudioSource two;
@@ -90,6 +91,11 @@ public class AudioHandler : MonoBehaviour
             case "RocketLauncherShoot":
             {
                 rocketLauncherShoot.PlayOneShot(rocketLauncherShoot.clip);
+                break;
+            }
+            case "OutOfAmmo":
+            {
+                outOfAmmo.PlayOneShot(outOfAmmo.clip);
                 break;
             }
 

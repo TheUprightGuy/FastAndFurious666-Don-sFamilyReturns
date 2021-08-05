@@ -50,6 +50,14 @@ public class CallbackHandler : MonoBehaviour
             updateProgress(_distance, _maxDistance);
     }
 
+    public Action<bool> toggleHint;
+    public void ToggleHint(bool _toggle)
+    {
+        if (toggleHint != null)
+            toggleHint(_toggle);
+    }
+
+
     public Action<bool> toggleRocket;
     public void ToggleRocket(bool _toggle)
     {

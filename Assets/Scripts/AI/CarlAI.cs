@@ -21,6 +21,16 @@ public class CarlAI : MonoBehaviour
     Rigidbody rigidBody = null;
     bool freeze = true;
 
+    // Aggro
+    bool hostile;
+    Transform player;
+
+    public void ToggleHostile(bool _toggle, Transform _player)
+    {
+        hostile = _toggle;
+        player = _player;
+    }
+
     public void ToggleFreeze(bool _toggle)
     {
         freeze = _toggle;

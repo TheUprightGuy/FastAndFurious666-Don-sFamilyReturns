@@ -19,11 +19,21 @@ public class HealthAttribute : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         TakeDamage(other.GetComponentInParent<Gun>().damage);
+        Movement player = other.GetComponentInParent<Movement>();
+        if (player)
+        {
+            CarlAI temp = GetComponent<CarlAI>();
+            if (temp)
+            {
+                temp.ToggleHostile(true, player.transform);
+                Debug.Log(transform.gameObject.name + " Aggros on player");
+            }
+        }
     }
 
     public void TakeDamage(int _damage)
     {
-        Debug.Log("Took " + _damage + " damage.");
+        //Debug.Log("Took " + _damage + " damage.");
 
         health -= _damage;
         if (health <= 0)
@@ -33,5 +43,24 @@ public class HealthAttribute : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.GetComponent<HealthAttribute>())
+            return;
+
+        Movement player = collision.gameObject.GetComponent<Movement>();
+        if (player)
+        {
+            CarlAI temp = GetComponent<CarlAI>();
+            if (temp)
+            {
+                temp.ToggleHostile(true, player.transform);
+                Debug.Log(transform.gameObject.name + " Aggros on player");
+            }
+        }
+
+        TakeDamage(1);
     }
 }

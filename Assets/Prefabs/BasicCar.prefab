@@ -545,6 +545,7 @@ MonoBehaviour:
   skidClouds:
   - {fileID: 4621366924041579996}
   - {fileID: 4621366922640560192}
+  onRoad: 0
 --- !u!114 &4428236411037445695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6450,7 +6451,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10000
+      scalar: 1000
       minScalar: 10
       maxCurve:
         serializedVersion: 2

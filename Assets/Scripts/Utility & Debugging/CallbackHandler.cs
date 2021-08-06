@@ -50,6 +50,13 @@ public class CallbackHandler : MonoBehaviour
             updateProgress(_distance, _maxDistance);
     }
 
+    public Action<EndState> showEndScreen;
+    public void ShowEndScreen(EndState _state)
+    {
+        if (showEndScreen != null)
+            showEndScreen(_state);
+    }
+
     public Action<bool> toggleHint;
     public void ToggleHint(bool _toggle)
     {

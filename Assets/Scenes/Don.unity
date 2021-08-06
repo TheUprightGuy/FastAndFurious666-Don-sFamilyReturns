@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45532358, g: 0.60058445, b: 0.7729511, a: 1}
+  m_IndirectSpecularColor: {r: 0.5928666, g: 0.42363048, b: 0.5083007, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2719,7 +2719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &939838027
 Transform:
   m_ObjectHideFlags: 0
@@ -3847,6 +3847,18 @@ Transform:
   m_Father: {fileID: 2087490329}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1626005782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5878707539239248553, guid: 654f0bc7ba120964b97a1741057dd24e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8525325377162777886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1650691493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5907,7 +5919,7 @@ PrefabInstance:
     - target: {fileID: 2576182433156657790, guid: 3786ad0ee9eefa443965b03e96e550cc,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2576182433156657790, guid: 3786ad0ee9eefa443965b03e96e550cc,
         type: 3}
@@ -6259,6 +6271,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9819434975898817, guid: 9bbc2bdef1edc8546824a8221231f2b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9819434975898830, guid: 9bbc2bdef1edc8546824a8221231f2b1, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3909002573841314945, guid: 3e113f568bae91e4abfc4b670c84ddea,
         type: 3}
       propertyPath: m_RootOrder
@@ -6333,14 +6353,6 @@ PrefabInstance:
         type: 3}
       propertyPath: uiElement
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9819434975898817, guid: 9bbc2bdef1edc8546824a8221231f2b1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9819434975898830, guid: 9bbc2bdef1edc8546824a8221231f2b1, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bbc2bdef1edc8546824a8221231f2b1, type: 3}
@@ -7197,6 +7209,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5878707539239248553, guid: 654f0bc7ba120964b97a1741057dd24e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878707539239248555, guid: 654f0bc7ba120964b97a1741057dd24e,
+        type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 1626005782}
     - target: {fileID: 8525325375723065134, guid: 654f0bc7ba120964b97a1741057dd24e,
         type: 3}
       propertyPath: WorldCam

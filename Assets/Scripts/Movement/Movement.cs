@@ -48,11 +48,15 @@ public class Movement : MonoBehaviour
         freeze = _toggle;
     }
 
+    public bool onRoad;
 
     void Update()
     {
         if (freeze)
             return;
+
+        onRoad = RoadUtilities.instance.IsOnLine(transform.position);
+
 
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);

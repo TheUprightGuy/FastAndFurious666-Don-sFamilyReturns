@@ -4,12 +4,30 @@ using UnityEngine;
 
 public class RoadUtilities : MonoBehaviour
 {
+    #region Singleton
+    public static RoadUtilities instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("More than one RoadUtils Exists");
+            Destroy(this.gameObject);
+        }
+        instance = this;
+    }
+    #endregion Singleton;
+
+    public void SetRoad(LineRenderer _lr)
+    {
+        lineRenderer = _lr;
+    }
+
     public LineRenderer lineRenderer;
 
-    [HideInInspector]
-    public LineRenderer LR => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
+    //[HideInInspector]
+    //public LineRenderer lineRenderer => (lineRenderer == null) ? (GetComponent<LineRenderer>()) : (lineRenderer);
 
-    public float LineWidth => LR.startWidth / 2.0f;
+    public float LineWidth => lineRenderer.startWidth / 2.0f;
     /// <summary>
     /// Gets the total world length of the line
     /// </summary>
@@ -17,8 +35,8 @@ public class RoadUtilities : MonoBehaviour
     public float GetLengthOfLine()
     {
         float retLength = 0.0f;
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         for (int i = 0; i < points.Length - 1; i++)
         {
@@ -37,8 +55,8 @@ public class RoadUtilities : MonoBehaviour
     {
         float distanceAim = GetLengthOfLine() * _percentageAlongLine;
 
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         float retLength = 0.0f;
         for (int i = 0; i < points.Length - 1; i++)
@@ -70,8 +88,8 @@ public class RoadUtilities : MonoBehaviour
     {
         float distanceAim = GetLengthOfLine() * _percentageAlongLine;
 
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         float retLength = 0.0f;
         for (int i = 0; i < points.Length - 1; i++)
@@ -106,8 +124,8 @@ public class RoadUtilities : MonoBehaviour
     {
         List<Vector3> retList = new List<Vector3>();
 
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         for (int i = 1; i < points.Length - 1; i++)
         {
@@ -133,8 +151,8 @@ public class RoadUtilities : MonoBehaviour
     {
         List<int> retList = new List<int>();
 
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         for (int i = 1; i < points.Length - 1; i++)
         {
@@ -157,7 +175,7 @@ public class RoadUtilities : MonoBehaviour
     /// <returns>True if within the line width</returns>
     public bool IsOnLine(Vector3 _point)
     {
-        return (GetDistanceToLine(_point) < (LR.startWidth / 2));
+        return (GetDistanceToLine(_point) < (lineRenderer.startWidth / 2));
     }
 
     /// <summary>
@@ -167,8 +185,8 @@ public class RoadUtilities : MonoBehaviour
     /// <returns>The distance to <paramref name="_point"/></returns>
     public float GetDistanceToLine(Vector3 _point)
     {
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         Vector2 point2D = new Vector2(_point.x, _point.z);
 
@@ -195,8 +213,8 @@ public class RoadUtilities : MonoBehaviour
 
     public Vector3 GetPointAheadOnTrack(Vector3 _point, float distAhead)
     {
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         Vector2 point2D = new Vector2(_point.x, _point.z);
 
@@ -246,8 +264,8 @@ public class RoadUtilities : MonoBehaviour
     /// <returns>Returns the closest point on line, with a flattened Y value</returns>
     public Vector3 GetClosestPointOnLine(Vector3 _point)
     {
-        Vector3[] points = new Vector3[LR.positionCount];
-        LR.GetPositions(points);
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
 
         Vector2 point2D = new Vector2(_point.x, _point.z);
 

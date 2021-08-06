@@ -71,6 +71,8 @@ public class RoadGenerator : MonoBehaviour
             AddAccesories();
             Debug.Log("Added accesories in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
+
+        RoadUtilities.instance.SetRoad(GetComponent<LineRenderer>());
     }
 
 
@@ -125,8 +127,8 @@ public class RoadGenerator : MonoBehaviour
     {
         List<int> indexList = RoadUtils.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
 
-        Vector3[] points = new Vector3[RoadUtils.LR.positionCount];
-        RoadUtils.LR.GetPositions(points);
+        Vector3[] points = new Vector3[RoadUtils.lineRenderer.positionCount];
+        RoadUtils.lineRenderer.GetPositions(points);
 
         foreach (int i in indexList)
         {
@@ -134,7 +136,7 @@ public class RoadGenerator : MonoBehaviour
             Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
             Vector3 right = -left;
 
-            float distToEdge = RoadUtils.LR.startWidth / 2;
+            float distToEdge = RoadUtils.lineRenderer.startWidth / 2;
             GameObject a = Instantiate(tireStack, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
             a.transform.forward = left;
             a = Instantiate(tireStack, points[i] + (right * distToEdge), Quaternion.identity, this.transform);

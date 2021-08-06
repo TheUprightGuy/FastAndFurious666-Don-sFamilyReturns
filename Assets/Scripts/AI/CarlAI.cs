@@ -39,6 +39,7 @@ public class CarlAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RoadUtils = RoadUtilities.instance;
         CallbackHandler.instance.toggleFreeze += ToggleFreeze;
     }
     private void OnDestroy()

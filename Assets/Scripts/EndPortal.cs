@@ -32,6 +32,7 @@ public class EndPortal : MonoBehaviour
             StartArena();
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if ((AILayers == (AILayers | (1 << other.gameObject.layer))) ||
@@ -51,6 +52,10 @@ public class EndPortal : MonoBehaviour
     {
         player.SetActive(true);
 
+        //Setup next level environment
+        ExitingLevel.SetActive(false);
+        EnteringLevel.SetActive(true);
+
         if (AIContainer != null)
         {
             foreach (Transform ai in AIContainer.transform)
@@ -59,16 +64,28 @@ public class EndPortal : MonoBehaviour
                 ai.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 ai.GetComponent<CarlAI>().RoadUtils = null;
             }
-
             
         }
     }
+
     void TriggerPortal()
     {
         player.SetActive(false);
 
-        
 
+        if (true) //Check for bad deeds on the player in here
+        {
+            GoodEnding();
+        }
+        else
+        {
+            BadEnding();
+        }
+        
+    }
+
+    void BadEnding()
+    {
         //Get AI not yet in portal
         if (AIContainer != null)
         {
@@ -89,17 +106,18 @@ public class EndPortal : MonoBehaviour
                     0.0f,
                     Radius * Mathf.Sin((i * spacing) * Mathf.Deg2Rad)) + DestinationMarker.transform.position; //placements
             }
-           
-
         }
 
-        
-        //Setup next level environment
-        ExitingLevel.SetActive(false);
-        EnteringLevel.SetActive(true);
-
-        //this.transform.parent.gameObject.SetActive(false);
-        
+        DoCutScene();
+       
+    }
+    void GoodEnding()
+    {
+        //GO INTO END SCENE
+    }
+    void DoCutScene()
+    {
+        //TRIGGER CUTSCENE HERE, CALL STARTARENA ON CUTSCENE FINISH
     }
 
     private void OnDrawGizmos()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.8230225, g: 0.4401293, b: 0.4980936, a: 1}
+  m_IndirectSpecularColor: {r: 0.9570329, g: 0.7974192, b: 0.719741, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4081,15 +4081,6 @@ MonoBehaviour:
     type: 3}
   portal: {fileID: 574713139}
   ItemDrops:
-  - Name: PowerUp
-    ItemPrefab: {fileID: 9819434975898817, guid: 9bbc2bdef1edc8546824a8221231f2b1,
-      type: 3}
-    NumberPlaced: 4
-    PlacedPointingAlongTrack: 0
-    MinPlacement: 0
-    MaxPlacement: 1
-    MinNumberInRow: 2
-    MaxNumberInRow: 4
   - Name: Upgrade Path
     ItemPrefab: {fileID: 6949678435494850942, guid: f14599078661256439d1001a0711218e,
       type: 3}
@@ -4099,13 +4090,13 @@ MonoBehaviour:
     MaxPlacement: 0.5
     MinNumberInRow: 1
     MaxNumberInRow: 1
-  - Name: Upgrade Path
-    ItemPrefab: {fileID: 8825194042673645459, guid: dc6fa6560e70f4b4790761ec0c288d3e,
+  - Name: Upgrade Trigger
+    ItemPrefab: {fileID: 804829477892846096, guid: 58628b0a390ab0f439d3f3261d44d3dd,
       type: 3}
     NumberPlaced: 1
     PlacedPointingAlongTrack: 1
-    MinPlacement: 0.51
-    MaxPlacement: 0.51
+    MinPlacement: 0.42
+    MaxPlacement: 0.42
     MinNumberInRow: 1
     MaxNumberInRow: 1
   SegmentCount: 25
@@ -5355,13 +5346,13 @@ MonoBehaviour:
     type: 3}
   portal: {fileID: 975821405}
   ItemDrops:
-  - Name: PowerUp
+  - Name: PowerUps
     ItemPrefab: {fileID: 9819434975898817, guid: 9bbc2bdef1edc8546824a8221231f2b1,
       type: 3}
-    NumberPlaced: 4
-    PlacedPointingAlongTrack: 0
-    MinPlacement: 0
-    MaxPlacement: 1
+    NumberPlaced: 7
+    PlacedPointingAlongTrack: 1
+    MinPlacement: 0.2
+    MaxPlacement: 0.9
     MinNumberInRow: 2
     MaxNumberInRow: 4
   - Name: Upgrade Path
@@ -5373,13 +5364,13 @@ MonoBehaviour:
     MaxPlacement: 0.5
     MinNumberInRow: 1
     MaxNumberInRow: 1
-  - Name: Upgrade Path
-    ItemPrefab: {fileID: 8825194042673645459, guid: dc6fa6560e70f4b4790761ec0c288d3e,
+  - Name: Upgrade Trigger
+    ItemPrefab: {fileID: 804829477892846096, guid: 58628b0a390ab0f439d3f3261d44d3dd,
       type: 3}
     NumberPlaced: 1
     PlacedPointingAlongTrack: 1
-    MinPlacement: 0.51
-    MaxPlacement: 0.51
+    MinPlacement: 0.42
+    MaxPlacement: 0.42
     MinNumberInRow: 1
     MaxNumberInRow: 1
   SegmentCount: 25

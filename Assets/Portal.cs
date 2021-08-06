@@ -8,7 +8,8 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // TEMP
         if (other.GetComponent<Movement>())
-            Debug.Log("Went through portal");
+            CallbackHandler.instance.ShowEndScreen(EndState.Killed);
     }
 }

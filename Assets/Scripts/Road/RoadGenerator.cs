@@ -75,6 +75,8 @@ public class RoadGenerator : MonoBehaviour
             AddAccesories();
             Debug.Log("Added accesories in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
+
+        RoadUtilities.instance.SetRoad(GetComponent<LineRenderer>());
     }
 
 
@@ -145,8 +147,8 @@ public class RoadGenerator : MonoBehaviour
     {
         List<int> indexList = RoadUtils.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
 
-        Vector3[] points = new Vector3[RoadUtils.LR.positionCount];
-        RoadUtils.LR.GetPositions(points);
+        Vector3[] points = new Vector3[RoadUtils.lineRenderer.positionCount];
+        RoadUtils.lineRenderer.GetPositions(points);
 
         foreach (int i in indexList)
         {

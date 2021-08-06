@@ -66,7 +66,7 @@ public class CarlAI : MonoBehaviour
         Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
         float distToTrack = RoadUtils.GetDistanceToLine(projectedPos);
 
-        bool isHeadingForDisaster = 
+        bool isHeadingForDisaster =
             distToTrack > RoadUtils.LineWidth * trackWidthMulti ||
             Physics.Raycast(transform.position, rigidBody.velocity.normalized, PredictionDistance, AvoidingLayers.value);
 
@@ -79,7 +79,8 @@ public class CarlAI : MonoBehaviour
             rigidBody.AddForce((-velocityDir) * BrakeSpeed);
         }
 
-        if (rigidBody.velocity.magnitude < MaxSpeed)
+        if (rigidBody.velocity.magnitude < MaxSpeed && //Not above speed limit
+            Physics.Raycast(transform.position, Vector3.down, 1.0f/*, AvoidingLayers.value*/)) //On the ground
         {
             Vector3 moveDir = transform.forward;
 

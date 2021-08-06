@@ -83,7 +83,7 @@ public class RoadUtilities : MonoBehaviour
                 float amountAlongLine = distanceAim - newLength;
                 Vector3 dir = (points[i + 1] - points[i]).normalized;
                 point = points[i] + (dir * amountAlongLine);
-                direction = points[i] + (dir * amountAlongLine);
+                direction = dir;
                 return ;
             }
             else
@@ -97,6 +97,7 @@ public class RoadUtilities : MonoBehaviour
         point = Vector3.zero;
         direction = Vector3.zero;
     }
+
     /// <summary>
     /// Gets the points of segments with a greater angle than <paramref name="_angle"/>
     /// </summary>

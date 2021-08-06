@@ -11,8 +11,12 @@ public class RoadGenerator : MonoBehaviour
     public RoadUtilities RoadUtils = null;
     public Transform EndPoint = null;
 
-    [Header("Prefabs")]
-    public GameObject tireStack;
+    [Header("Corner tires")]
+    public GameObject tireStackPrefab;
+
+
+    [Header("Portal")]
+    public GameObject portal;
 
     [System.Serializable]
     public struct ItemDrop
@@ -80,8 +84,24 @@ public class RoadGenerator : MonoBehaviour
         PlaceTires();
 
         PlaceItemDrops();
+
+        PlacePortal();
     }
 
+    void PlacePortal()
+    {
+        if (portal == null)
+        {
+            return;
+        }
+        Vector3 pointOnTrack; //Point to place this on the track
+        Vector3 directionOnTrack; //Direction the track is going at this point
+
+        RoadUtils.GetPointAlongLine(1.0f, out directionOnTrack, out pointOnTrack);
+
+        portal.transform.position = pointOnTrack;
+        portal.transform.localRotation = Quaternion.LookRotation(directionOnTrack, Vector3.up);
+    }
     void PlaceItemDrops()
     {
         foreach (ItemDrop item in ItemDrops)
@@ -135,9 +155,9 @@ public class RoadGenerator : MonoBehaviour
             Vector3 right = -left;
 
             float distToEdge = RoadUtils.LR.startWidth / 2;
-            GameObject a = Instantiate(tireStack, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
+            GameObject a = Instantiate(tireStackPrefab, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
             a.transform.forward = left;
-            a = Instantiate(tireStack, points[i] + (right * distToEdge), Quaternion.identity, this.transform);
+            a = Instantiate(tireStackPrefab, points[i] + (right * distToEdge), Quaternion.identity, this.transform);
             a.transform.forward = right;
         }
     }

@@ -57,7 +57,6 @@ public class Movement : MonoBehaviour
 
         onRoad = RoadUtilities.instance.IsOnLine(transform.position);
 
-
         // Get Angle Between Forward + Current Velocity
         angle = Vector3.Angle(transform.forward, rb.velocity.normalized);
         reversing = false;
@@ -77,7 +76,7 @@ public class Movement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.W) )
         {
-            if (rb.velocity.magnitude < maxSpeed)
+            if (rb.velocity.magnitude < (onRoad ? maxSpeed : maxSpeed - 10.0f))
             {
                 float perc = rb.velocity.magnitude / maxSpeed;
                 rb.AddForce(transform.forward * speedForce * Time.deltaTime);
@@ -103,14 +102,14 @@ public class Movement : MonoBehaviour
         {
             transform.Rotate((reversing ? -1 : 1) * -Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
 
-            carRotation -= Mathf.Clamp01(rb.velocity.magnitude / 10.0f);
+            carRotation -= Mathf.Clamp01(rb.velocity.magnitude / 10.0f) * (onRoad ? 1.0f : 1.8f);
             car.localRotation = Quaternion.Euler(0, carRotation, 0);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate((reversing ? -1 : 1) * Vector3.up * Time.deltaTime * 100.0f * Mathf.Clamp01(rb.velocity.magnitude / 10));
 
-            carRotation += Mathf.Clamp01(rb.velocity.magnitude / 10.0f);
+            carRotation += Mathf.Clamp01(rb.velocity.magnitude / 10.0f) * (onRoad ? 1.0f : 1.8f);
             car.localRotation = Quaternion.Euler(0, carRotation, 0);
         }
         else

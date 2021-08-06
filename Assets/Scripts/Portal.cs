@@ -17,13 +17,23 @@ public class Portal : MonoBehaviour
     List<GameObject> Placings = new List<GameObject>();
 
     [Header("Levels")]
-    public GameObject Exiting;
+    public GameObject ExitingLevel;
     public GameObject EnteringLevel;
 
+    public GameObject player;
     private void Start()
     {
-        Exiting.SetActive(true);
+        ExitingLevel.SetActive(true);
         EnteringLevel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.KeypadMultiply))
+        {
+            Placings.Add(player);
+            TriggerPortal();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -62,8 +72,8 @@ public class Portal : MonoBehaviour
         //Preset positioning and rotation
         for (int i = 0; i < Placings.Count; i++)
         {
-
-            int y = Mathf.FloorToInt(i / NumOfCols);
+            float placing = Placings.Count - i;
+            int y = Mathf.FloorToInt(placing / NumOfCols);
             int x = i - (y * NumOfCols);
             Vector3 pos = new Vector3(x * Spacings, 0.0f, y * Spacings) + DestinationMarker.transform.position;
             Placings[i].transform.position = pos;
@@ -71,9 +81,6 @@ public class Portal : MonoBehaviour
 
         }
 
-        //Setup next level environment
-        Exiting.SetActive(false);
-        EnteringLevel.SetActive(true);
         RoadUtilities.instance.SetRoad(EnteringLevel.GetComponentInChildren<LineRenderer>());
 
         //Set everything to true
@@ -83,8 +90,12 @@ public class Portal : MonoBehaviour
         }
 
         //Wayd if you wanna do a countdown on next level probs chuck a pause at the same time when everything is set active
-        this.transform.parent.gameObject.SetActive(false);
+        //this.transform.parent.gameObject.SetActive(false);
         Placings.Clear(); //Clear this cause I'm pedantic
+
+        //Setup next level environment
+        ExitingLevel.SetActive(false);
+        EnteringLevel.SetActive(true);
     }
 
     private void OnDrawGizmos()

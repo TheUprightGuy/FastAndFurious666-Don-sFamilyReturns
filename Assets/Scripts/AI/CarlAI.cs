@@ -23,7 +23,7 @@ public class CarlAI : MonoBehaviour
 
     // Aggro
     bool hostile;
-    Transform player;
+    public Transform player;
 
     public void ToggleHostile(bool _toggle, Transform _player)
     {
@@ -59,8 +59,8 @@ public class CarlAI : MonoBehaviour
     void OhNoBigBroImStuck()
     {
         //transform.position = transform.position + (Vector3.up * 1.0f);
-        transform.up = Vector3.up;
-
+        //transform.up = Vector3.up;
+        rigidBody.MoveRotation(Quaternion.LookRotation(Vector3.forward, Vector3.up));
     }
     void ApplyMovement()
     {
@@ -68,15 +68,21 @@ public class CarlAI : MonoBehaviour
         {
             rigidBody = GetComponent<Rigidbody>();
         }
-
-
-        Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
-        float distToTrack = RoadUtils.GetDistanceToLine(projectedPos);
-
-        bool isHeadingForDisaster =
+        bool isHeadingForDisaster = false;
+        if (RoadUtils != null)
+        {
+            Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
+            float distToTrack = RoadUtils.GetDistanceToLine(projectedPos);
+            isHeadingForDisaster =
             distToTrack > RoadUtils.LineWidth * trackWidthMulti ||
             Physics.Raycast(transform.position, rigidBody.velocity.normalized, PredictionDistance, AvoidingLayers.value);
-
+        }
+        else
+        {
+            isHeadingForDisaster = 
+                Physics.Raycast(transform.position, rigidBody.velocity.normalized, PredictionDistance, AvoidingLayers.value);
+        }
+        
 
         if (Vector3.Angle(transform.up, Vector3.up) >= 90.0f) //On side
         {
@@ -93,22 +99,29 @@ public class CarlAI : MonoBehaviour
         if (rigidBody.velocity.magnitude < MaxSpeed && //Not above speed limit
             Physics.Raycast(transform.position, -transform.up, 1.0f/*, AvoidingLayers.value*/)) //On the ground
         {
-            Vector3 moveDir = transform.forward;
-
-            if (isHeadingForDisaster)
+            Vector3 moveDir = Vector3.zero;
+            if (RoadUtils == null && player != null) //Fucking attack lads
             {
-                Vector3 pos = RoadUtils.GetPointAheadOnTrack(transform.position, PredictionDistance);
-
-                Vector3 dirToPredict = pos - transform.position;
-                moveDir += dirToPredict;
+                moveDir = (player.transform.position - transform.position).normalized;
             }
-            else if(hostile)//Will only be hostile if not crashing
+            else
             {
-                Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
-
-                if (Vector3.Angle(dirToPlayer, transform.forward) < 90.0f) //If not in front ignore
+                moveDir = transform.forward;
+                if (isHeadingForDisaster)
                 {
-                    moveDir += dirToPlayer;
+                    Vector3 pos = RoadUtils.GetPointAheadOnTrack(transform.position, PredictionDistance);
+
+                    Vector3 dirToPredict = pos - transform.position;
+                    moveDir += dirToPredict;
+                }
+                else if (hostile)//Will only be hostile if not crashing
+                {
+                    Vector3 dirToPlayer = (player.transform.position - transform.position).normalized;
+
+                    if (Vector3.Angle(dirToPlayer, transform.forward) < 90.0f) //If not in front ignore
+                    {
+                        moveDir += dirToPlayer;
+                    }
                 }
             }
 
@@ -117,7 +130,9 @@ public class CarlAI : MonoBehaviour
             moveDir = moveDir.normalized;
             moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up);
             rigidBody.AddForce(moveDir * MoveAcceleration);
-            transform.forward = rigidBody.velocity.normalized;
+
+            rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity.normalized, Vector3.up));
+            //transform.forward = rigidBody.velocity.normalized;
         }
 
     }

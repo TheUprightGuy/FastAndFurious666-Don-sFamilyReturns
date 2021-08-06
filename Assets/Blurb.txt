@@ -1,0 +1,13 @@
+FURIOUS FAMILY
+
+You've always dreamed about becoming part of the family, nows your chance.
+Race AI on procedurally generated tracks, and win the race by any means necessary.
+
+Keep an eye out for weapon and upgrade crates on the race track.
+
+CONTROLS
+~~~~~~~~
+WASD   - Movement
+SPACE  - Brake
+ARROWS - Rotate Weapon
+E      - Fire Weapon

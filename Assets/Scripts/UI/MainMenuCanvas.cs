@@ -7,6 +7,8 @@ public class MainMenuCanvas : MonoBehaviour
 {
     public Image pressAnyKey;
     public Animator options;
+    public AudioSource selectSFX;
+    public AudioSource moveSFX;
 
     public List<GameObject> pointers;
     int index = 0;
@@ -20,6 +22,15 @@ public class MainMenuCanvas : MonoBehaviour
         pointers[1].SetActive(false);
     }
 
+    void PlaySelectSFX()
+    {
+        selectSFX.PlayOneShot(selectSFX.clip);
+    }
+    void PlayMoveSFX()
+    {
+        moveSFX.PlayOneShot(moveSFX.clip);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,6 +40,7 @@ public class MainMenuCanvas : MonoBehaviour
             started = true;
             pressAnyKey.enabled = false;
             options.SetTrigger("ShowOptions");
+            PlaySelectSFX();
             Invoke("ShowPointer", 1.0f);
         }
 
@@ -43,10 +55,12 @@ public class MainMenuCanvas : MonoBehaviour
                     index = 0;
                 }
                 pointers[index].SetActive(true);
+                PlayMoveSFX();
             }
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
             {
+                PlaySelectSFX();
                 Use(index);
             }
         }
@@ -64,7 +78,7 @@ public class MainMenuCanvas : MonoBehaviour
             // Start
             case 0:
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+                Invoke("GoToScene", 0.5f);
                 break;
             }
             // Quit
@@ -74,6 +88,11 @@ public class MainMenuCanvas : MonoBehaviour
                 break;
             }
         }     
+    }
+
+    public void GoToScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     IEnumerator FlashPressAnyKey()

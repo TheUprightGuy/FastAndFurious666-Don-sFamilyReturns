@@ -56,6 +56,12 @@ public class CarlAI : MonoBehaviour
         ApplyMovement();
     }
 
+    void OhNoBigBroImStuck()
+    {
+        //transform.position = transform.position + (Vector3.up * 1.0f);
+        transform.up = Vector3.up;
+
+    }
     void ApplyMovement()
     {
         if (rigidBody == null)
@@ -72,16 +78,20 @@ public class CarlAI : MonoBehaviour
             Physics.Raycast(transform.position, rigidBody.velocity.normalized, PredictionDistance, AvoidingLayers.value);
 
 
-
+        if (Vector3.Angle(transform.up, Vector3.up) >= 90.0f) //On side
+        {
+            OhNoBigBroImStuck();
+        }
 
         if (isHeadingForDisaster)
         {
             Vector3 velocityDir = rigidBody.velocity.normalized;
+            velocityDir = Vector3.ProjectOnPlane(velocityDir, Vector3.up);
             rigidBody.AddForce((-velocityDir) * BrakeSpeed);
         }
 
         if (rigidBody.velocity.magnitude < MaxSpeed && //Not above speed limit
-            Physics.Raycast(transform.position, Vector3.down, 1.0f/*, AvoidingLayers.value*/)) //On the ground
+            Physics.Raycast(transform.position, -transform.up, 1.0f/*, AvoidingLayers.value*/)) //On the ground
         {
             Vector3 moveDir = transform.forward;
 
@@ -105,10 +115,11 @@ public class CarlAI : MonoBehaviour
 
 
             moveDir = moveDir.normalized;
+            moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up);
             rigidBody.AddForce(moveDir * MoveAcceleration);
+            transform.forward = rigidBody.velocity.normalized;
         }
 
-        transform.forward = rigidBody.velocity.normalized;
     }
     Color GizmoColor = Color.blue;
     private void OnDrawGizmos()

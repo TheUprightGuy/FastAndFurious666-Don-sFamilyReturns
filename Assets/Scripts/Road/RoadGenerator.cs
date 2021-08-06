@@ -55,6 +55,8 @@ public class RoadGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RoadUtilities.instance.SetRoad(GetComponent<LineRenderer>());
+        RoadUtils = RoadUtilities.instance;
         Debug.Log("Building road...");
         float timeSpent = Time.realtimeSinceStartup;
         BuildRoad();
@@ -68,7 +70,8 @@ public class RoadGenerator : MonoBehaviour
             Debug.Log("Built spline in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
 
-        if (RoadUtils != null)
+        
+        if (RoadUtilities.instance != null)
         {
             Debug.Log("Adding accesories...");
             timeSpent = Time.realtimeSinceStartup;
@@ -76,7 +79,6 @@ public class RoadGenerator : MonoBehaviour
             Debug.Log("Added accesories in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
 
-        RoadUtilities.instance.SetRoad(GetComponent<LineRenderer>());
     }
 
 
@@ -99,7 +101,7 @@ public class RoadGenerator : MonoBehaviour
         Vector3 pointOnTrack; //Point to place this on the track
         Vector3 directionOnTrack; //Direction the track is going at this point
 
-        RoadUtils.GetPointAlongLine(1.0f, out directionOnTrack, out pointOnTrack);
+        RoadUtilities.instance.GetPointAlongLine(0.98f, out directionOnTrack, out pointOnTrack);
 
         portal.transform.position = pointOnTrack;
         portal.transform.localRotation = Quaternion.LookRotation(directionOnTrack, Vector3.up);
@@ -115,18 +117,18 @@ public class RoadGenerator : MonoBehaviour
                 Vector3 pointOnTrack; //Point to place this on the track
                 Vector3 directionOnTrack; //Direction the track is going at this point
 
-                RoadUtils.GetPointAlongLine(placementOnTrack, out directionOnTrack, out pointOnTrack);
+                RoadUtilities.instance.GetPointAlongLine(placementOnTrack, out directionOnTrack, out pointOnTrack);
 
                 //Get the way to the left of the track
                 Vector3 left = Vector3.Cross(directionOnTrack.normalized, Vector3.up).normalized;
                 Vector3 right = -left; //Get opposing
 
                 //Get the start point for the row of item pickups
-                Vector3 startPoint = pointOnTrack + (left * RoadUtils.LineWidth);
+                Vector3 startPoint = pointOnTrack + (left * RoadUtilities.instance.LineWidth);
 
                 //Figure the spacing each item pickup has to be apart
                 int rowCount = Random.Range(item.MinNumberInRow, item.MaxNumberInRow);
-                float itemSpacing = (RoadUtils.LineWidth * 2) / (rowCount + 1);
+                float itemSpacing = (RoadUtilities.instance.LineWidth * 2) / (rowCount + 1);
                 
                 for (int j = 0; j < rowCount; j++)
                 {
@@ -145,10 +147,10 @@ public class RoadGenerator : MonoBehaviour
     }
     void PlaceTires()
     {
-        List<int> indexList = RoadUtils.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
+        List<int> indexList = RoadUtilities.instance.GetIndexesAtAngle(3.0f); //Completely arbitrary number lmao
 
-        Vector3[] points = new Vector3[RoadUtils.lineRenderer.positionCount];
-        RoadUtils.lineRenderer.GetPositions(points);
+        Vector3[] points = new Vector3[RoadUtilities.instance.lineRenderer.positionCount];
+        RoadUtilities.instance.lineRenderer.GetPositions(points);
 
         foreach (int i in indexList)
         {
@@ -156,7 +158,7 @@ public class RoadGenerator : MonoBehaviour
             Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
             Vector3 right = -left;
 
-            float distToEdge = RoadUtils.LR.startWidth / 2;
+            float distToEdge = RoadUtilities.instance.LineWidth;
             GameObject a = Instantiate(tireStackPrefab, points[i] + (left * distToEdge), Quaternion.identity, this.transform);
             a.transform.forward = left;
             a = Instantiate(tireStackPrefab, points[i] + (right * distToEdge), Quaternion.identity, this.transform);

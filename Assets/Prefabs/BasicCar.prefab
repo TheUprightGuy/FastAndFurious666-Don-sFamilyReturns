@@ -540,8 +540,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 4621366923783910464}
   brakingMat: {fileID: 2100000, guid: 1792d3a649280694ca12ed3a1b2afe14, type: 2}
-  speedForce: 1000
-  maxSpeed: 30
+  speedForce: 600
+  maxSpeed: 35
   skidClouds:
   - {fileID: 4621366924041579996}
   - {fileID: 4621366922640560192}

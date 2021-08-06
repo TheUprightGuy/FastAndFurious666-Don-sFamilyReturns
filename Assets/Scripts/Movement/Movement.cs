@@ -74,7 +74,11 @@ public class Movement : MonoBehaviour
         else if (Input.GetKey(KeyCode.W) )
         {
             if (rb.velocity.magnitude < maxSpeed)
+            {
+                float perc = rb.velocity.magnitude / maxSpeed;
                 rb.AddForce(transform.forward * speedForce * Time.deltaTime);
+                rb.AddForce(transform.forward * speedForce * Time.deltaTime * (1 - perc));
+            }
         }
         else if (Input.GetKey(KeyCode.S))
         {

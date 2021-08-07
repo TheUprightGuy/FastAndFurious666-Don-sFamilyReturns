@@ -12,6 +12,8 @@ public class CarlAI : MonoBehaviour
     public float MoveAcceleration = 10.0f;
     public float MaxSpeed = 30.0f;
 
+    public float CorrectAtAngle = 45.0f;
+    public float WaitForSettleThreshhold = 0.1f;
     [Header("AI")]
     public float PredictionDistance = 5.0f;
     public float lookAheadDist = 7.0f;
@@ -20,11 +22,18 @@ public class CarlAI : MonoBehaviour
     
     Rigidbody rigidBody = null;
     bool freeze = true;
-
     // Aggro
     bool hostile;
+    [Space]
     public Transform player;
 
+    [Header("Debug")]
+    public bool DoUprightCorrection = true;
+    public bool DoReverseForces = true;
+    public bool DoForwardForces = true;
+    public bool Debug = false;
+    public float fDebug;
+    bool waitForSettle = false;
     public void ToggleHostile(bool _toggle, Transform _player)
     {
         hostile = _toggle;
@@ -69,6 +78,7 @@ public class CarlAI : MonoBehaviour
             rigidBody = GetComponent<Rigidbody>();
         }
         bool isHeadingForDisaster = false;
+
         if (RoadUtils != null)
         {
             Vector3 projectedPos = transform.position + (rigidBody.velocity.normalized * PredictionDistance);
@@ -84,22 +94,40 @@ public class CarlAI : MonoBehaviour
         }
         
 
-        if (Vector3.Angle(transform.up, Vector3.up) >= 90.0f) //On side
-        {
-            OhNoBigBroImStuck();
-        }
+        
 
-        if (isHeadingForDisaster)
+        if (isHeadingForDisaster && DoReverseForces)
         {
             Vector3 velocityDir = rigidBody.velocity.normalized;
             velocityDir = Vector3.ProjectOnPlane(velocityDir, Vector3.up);
             rigidBody.AddForce((-velocityDir) * BrakeSpeed);
         }
+        
+        
+        if ((Vector3.Angle(transform.up, Vector3.up) >= CorrectAtAngle) && DoUprightCorrection) //On side don't trigger forces
+        {
+            //OhNoBigBroImStuck();
+            waitForSettle = true;
+            rigidBody.velocity = Vector3.zero;
+            rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity.normalized, Vector3.up));
+            return;
+        }
+
+        fDebug = rigidBody.angularVelocity.magnitude;
+        if (rigidBody.angularVelocity.magnitude <= WaitForSettleThreshhold && waitForSettle)
+        {
+            waitForSettle = false;
+        }
+
+        Debug = (Vector3.Angle(transform.up, Vector3.up) < 1.0f);
 
         if (rigidBody.velocity.magnitude < MaxSpeed && //Not above speed limit
-            Physics.Raycast(transform.position, -transform.up, 1.0f/*, AvoidingLayers.value*/)) //On the ground
+            Physics.Raycast(transform.position, -transform.up, 1.0f/*, AvoidingLayers.value*/) &&
+            DoForwardForces && 
+            !waitForSettle) //On the ground
         {
             Vector3 moveDir = Vector3.zero;
+
             if (RoadUtils == null && player != null) //Fucking attack lads
             {
                 moveDir = (player.transform.position - transform.position).normalized;
@@ -131,7 +159,11 @@ public class CarlAI : MonoBehaviour
             moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up);
             rigidBody.AddForce(moveDir * MoveAcceleration);
 
-            rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity.normalized, Vector3.up));
+            if ((Vector3.Angle(transform.up, Vector3.up) <= 0.1f) && DoUprightCorrection) //On side don't trigger forces
+            {
+                rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity.normalized, Vector3.up));
+            }
+            
             //transform.forward = rigidBody.velocity.normalized;
         }
 

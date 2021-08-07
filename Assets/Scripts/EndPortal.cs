@@ -71,16 +71,17 @@ public class EndPortal : MonoBehaviour
     void TriggerPortal()
     {
         player.SetActive(false);
+        
+        BadEnding();
 
-
-        if (true) //Check for bad deeds on the player in here
-        {
-            GoodEnding();
-        }
-        else
-        {
-            BadEnding();
-        }
+        //if (true) //Check for bad deeds on the player in here
+        //{
+        //    GoodEnding();
+        //}
+        //else
+        //{
+        //    BadEnding();
+        //}
         
     }
 

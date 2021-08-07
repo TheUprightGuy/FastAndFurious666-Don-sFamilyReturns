@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.9570329, g: 0.7974192, b: 0.719741, a: 1}
+  m_IndirectSpecularColor: {r: 0.92236507, g: 0.40722662, b: 0.4370123, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,6 +237,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 30
   MaxSpeed: 30
+  CorrectAtAngle: 90
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -244,6 +246,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &98742911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +280,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!4 &98742913
 Transform:
@@ -1011,7 +1018,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-74434
+  m_Name: pb_Mesh-1534
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2167,6 +2174,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -2174,6 +2183,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &650852953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2203,7 +2217,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!1 &666475929 stripped
 GameObject:
@@ -2935,6 +2949,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -2942,6 +2958,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &861148341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,7 +2992,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!4 &875355871 stripped
 Transform:
@@ -3239,7 +3260,7 @@ MonoBehaviour:
     m_Bits: 128
   AIContainer: {fileID: 554946940}
   DestinationMarker: {fileID: 1564179470}
-  Radius: 16.43
+  Radius: 30.31
   ExitingLevel: {fileID: 386099206}
   EnteringLevel: {fileID: 1675738530}
   player: {fileID: 666475929}
@@ -4187,7 +4208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564179469}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.2, z: 0}
+  m_LocalPosition: {x: 0.6, y: -5.2, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1750291728}
@@ -5251,6 +5272,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -5258,6 +5281,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &2012030481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5287,7 +5315,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!1 &2087490328
 GameObject:
@@ -6936,6 +6964,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -6943,6 +6973,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!65 &6600239966723903510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7035,7 +7070,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!65 &6600239966968967528
 BoxCollider:
@@ -7103,6 +7138,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -7110,6 +7147,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!4 &6600239966968967572
 Transform:
   m_ObjectHideFlags: 0
@@ -7139,7 +7181,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!114 &6600239966968967574
 MonoBehaviour:
@@ -7183,7 +7225,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!4 &6600239967056913757
 Transform:
@@ -7279,6 +7321,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -7286,6 +7330,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &6600239967056913827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7317,6 +7366,8 @@ MonoBehaviour:
   BrakeSpeed: 30
   MoveAcceleration: 50
   MaxSpeed: 30
+  CorrectAtAngle: 45
+  WaitForSettleThreshhold: 0.1
   PredictionDistance: 11
   lookAheadDist: 15
   trackWidthMulti: 0.5
@@ -7324,6 +7375,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   player: {fileID: 1700143779}
+  DoUprightCorrection: 1
+  DoReverseForces: 1
+  DoForwardForces: 1
+  Debug: 0
+  fDebug: 0
 --- !u!114 &6600239967726523693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7416,7 +7472,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!4 &6600239967726523859
 Transform:
@@ -7669,6 +7725,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1750291728}
     m_Modifications:
+    - target: {fileID: 258882931056160866, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.15087849
+      objectReference: {fileID: 0}
+    - target: {fileID: 258882931056160866, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.37648156
+      objectReference: {fileID: 0}
+    - target: {fileID: 315739685089327215, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.37417433
+      objectReference: {fileID: 0}
+    - target: {fileID: 315739685089327215, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.055086717
+      objectReference: {fileID: 0}
+    - target: {fileID: 364131151990905909, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13685018
+      objectReference: {fileID: 0}
+    - target: {fileID: 364131151990905909, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.33840474
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036785238249955680, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.33299848
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036785238249955680, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0016813353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511676308975123882, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.055182323
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511676308975123882, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.38782388
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794778336271220890, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.246
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794778336271220890, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.235
+      objectReference: {fileID: 0}
     - target: {fileID: 8375860105424710014, guid: d0bf99c07a18f2c4f84e629c93a39026,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7678,6 +7794,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375860105497891878, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375860105497891878, guid: d0bf99c07a18f2c4f84e629c93a39026,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8375860105497891878, guid: d0bf99c07a18f2c4f84e629c93a39026,
         type: 3}

@@ -38,6 +38,10 @@ public class TreeGenerator : MonoBehaviour
 
     public void CommitDeforestation()
     {
+        if (treeParent == null)
+        {
+            return;
+        }
         List<Transform> destroyList = new List<Transform>();
         foreach (Transform tree in treeParent)
         {

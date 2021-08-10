@@ -36,6 +36,13 @@ public class HealthAttribute : MonoBehaviour
         //Debug.Log("Took " + _damage + " damage.");
 
         health -= _damage;
+
+        if (GetComponent<Movement>())
+        {
+            CallbackHandler.instance.UpdateHealth((float)health / (float)maxHealth);
+        }
+
+
         if (health <= 0)
         {
             GameObject pfx = Instantiate(explosionPrefab, transform.position, Quaternion.identity, null);
@@ -45,14 +52,14 @@ public class HealthAttribute : MonoBehaviour
             if (_player)
                 CallbackHandler.instance.HasKilled();
 
-            // Check to see if any AI are alive
-            if (!CallbackHandler.instance.CheckSurvivors())
-                CallbackHandler.instance.ShowEndScreen(EndState.Win);
-
             // Check if player was Killed
             Movement player = GetComponent<Movement>();
             if (player)
                 CallbackHandler.instance.ShowEndScreen(EndState.Lose);
+
+            // Check to see if any AI are alive
+            if (!player && !CallbackHandler.instance.CheckSurvivors())
+                CallbackHandler.instance.ShowEndScreen(EndState.Win);
 
             Destroy(this.gameObject);
         }

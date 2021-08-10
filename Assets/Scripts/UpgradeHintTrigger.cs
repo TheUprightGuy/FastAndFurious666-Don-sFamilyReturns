@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class UpgradeHintTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void CancelHint()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CallbackHandler.instance.ToggleHint(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,6 +14,7 @@ public class UpgradeHintTrigger : MonoBehaviour
         if (other.GetComponent<Movement>())
         {
             CallbackHandler.instance.ToggleHint(true);
+            Invoke("CancelHint", 5.0f);
         }
     }
 }

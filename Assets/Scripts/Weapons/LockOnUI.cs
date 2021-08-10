@@ -48,7 +48,7 @@ public class LockOnUI : MonoBehaviour
     {
         image.enabled = target;
 
-        if (target)
+        if (target && target.gameObject != null)
         {
             tracking = Camera.main.WorldToViewportPoint(target.transform.position);
             tracking.x *= Screen.width;
@@ -56,7 +56,7 @@ public class LockOnUI : MonoBehaviour
 
             rect.position = tracking;
 
-            if (lockOn >= 6.0f)
+            if (lockOn >= 4.0f)
             {
                 text.SetText("LOCK");
                 StopAllCoroutines();
@@ -72,7 +72,7 @@ public class LockOnUI : MonoBehaviour
 
     public void SetTarget(LockOnTarget _target)
     {
-        if (_target != null && this.enabled)
+        if (!target && _target != null && this.enabled)
         {
             target = _target;
             text.SetText("LOCKING ON");
@@ -84,6 +84,16 @@ public class LockOnUI : MonoBehaviour
         target = null;
         TurnOffText();
         StopAllCoroutines();
+    }
+
+    public bool DropTarget(LockOnTarget _target)
+    {
+        if (target == _target)
+        {
+            target = null;
+            return true;
+        }
+        return false;
     }
 
     IEnumerator FlashLockOn()

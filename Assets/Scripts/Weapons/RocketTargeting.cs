@@ -39,7 +39,10 @@ public class RocketTargeting : MonoBehaviour
         if (temp)
         {
             targets.Remove(temp);
-            uiElement.SetTarget(null);
+            if (uiElement.DropTarget(temp))
+            {
+                uiElement.SetTarget(targets.Count > 0 ? targets[0] : null);
+            }
         }
     }
     #endregion Triggers

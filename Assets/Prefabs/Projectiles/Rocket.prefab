@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5361376275378673378}
   - component: {fileID: 5710045764638146665}
   - component: {fileID: 6998565697533166335}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,10 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f4c15d3c7792d47945c9a484593812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 15
+  baseSpeed: 50
   explosionPrefab: {fileID: 2510822058409842071, guid: e42a6a2b8baa89c4c87cd3a97a6bb979,
     type: 3}
-  target: {fileID: 0}
 --- !u!54 &6998565697533166335
 Rigidbody:
   m_ObjectHideFlags: 0

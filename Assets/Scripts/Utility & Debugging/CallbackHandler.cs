@@ -62,6 +62,13 @@ public class CallbackHandler : MonoBehaviour
             updateAmmo(_ammo, _maxAmmo);
     }
 
+    public Action<float> updateHealth;
+    public void UpdateHealth(float _perc)
+    {
+        if (updateHealth != null)
+            updateHealth(_perc);
+    }
+
     public Action<float, float> updateProgress;
     public void UpdateProgress(float _distance, float _maxDistance)
     {

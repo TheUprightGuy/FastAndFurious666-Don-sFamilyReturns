@@ -27,7 +27,8 @@ public class Upgrade : MonoBehaviour
                 {
                     HealthAttribute health = other.GetComponent<HealthAttribute>();
                     health.maxHealth += 50;
-                    health.health = health.maxHealth; 
+                    health.health = health.maxHealth;
+                        health.TakeDamage(0, false);
 
                     break;
                 }

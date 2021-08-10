@@ -42,7 +42,7 @@ public class RocketProjectile : MonoBehaviour
         Debug.Log("Collided with " + other.name);
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity, null);
         Destroy(explosion, 4.0f);
-        other.GetComponent<HealthAttribute>().TakeDamage(damage);
+        other.GetComponent<HealthAttribute>().TakeDamage(damage, true);
 
         Destroy(this.gameObject);
     }

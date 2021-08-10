@@ -29,6 +29,25 @@ public class CallbackHandler : MonoBehaviour
         ToggleRocket(false);
     }
 
+    bool killed = false;
+    public void HasKilled()
+    {
+        killed = true;
+    }
+    public bool GetKilled()
+    {
+        return killed;
+    }
+
+    public GameObject AIContainer;
+    public bool CheckSurvivors()
+    {
+        if (AIContainer.transform.childCount > 1)
+            return true;
+
+        return false;
+    }
+
     #region UICallbacks
     public Action<float, float> updateSpeedometer;
     public void UpdateSpeedometer(float _speed, float _maxSpeed)

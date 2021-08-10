@@ -19,6 +19,9 @@ public class EndPortal : MonoBehaviour
     public GameObject EnteringLevel;
 
     public GameObject player;
+
+    int position = 0;
+
     private void Start()
     {
         //ExitingLevel.SetActive(true);
@@ -35,6 +38,7 @@ public class EndPortal : MonoBehaviour
             GetComponent<CarlAI>()) //Hit thing is an AI
         {
             other.gameObject.SetActive(false);
+            position++;
         }
 
         if (other.GetComponent<Movement>()) //AI is player
@@ -47,6 +51,7 @@ public class EndPortal : MonoBehaviour
     public void StartArena()
     {
         player.SetActive(true);
+        CallbackHandler.instance.ShowEndScreen(EndState.None);
 
         //Setup next level environment
         ExitingLevel.SetActive(false);
@@ -67,18 +72,15 @@ public class EndPortal : MonoBehaviour
     public void TriggerPortal()
     {
         player.SetActive(false);
-        
-        BadEnding();
 
-        //if (true) //Check for bad deeds on the player in here
-        //{
-        //    GoodEnding();
-        //}
-        //else
-        //{
-        //    BadEnding();
-        //}
-        
+        if (!CallbackHandler.instance.GetKilled()) //Check for bad deeds on the player in here
+        {
+            GoodEnding();
+        }
+        else
+        {
+            BadEnding();
+        }   
     }
 
     void BadEnding()
@@ -109,16 +111,40 @@ public class EndPortal : MonoBehaviour
             }
         }
 
-        DoCutScene();
-       
+        DoCutScene();     
     }
+
     void GoodEnding()
     {
         //GO INTO END SCENE
+        // Get position
+        if (position == 0)
+        {
+            CallbackHandler.instance.ShowEndScreen(EndState.First);
+        }
+        else if (position < 3)
+        {
+            CallbackHandler.instance.ShowEndScreen(EndState.SecondThird);
+        }
+        else
+        {
+            CallbackHandler.instance.ShowEndScreen(EndState.Last);
+        }
+
+        // Delay - Go to next screen, show ty message
+        Invoke("ShowThankYou", 5.0f);
     }
+
+    void ShowThankYou()
+    {
+        CallbackHandler.instance.ShowEndScreen(EndState.Thanks);
+    }
+
     void DoCutScene()
     {
         //TRIGGER CUTSCENE HERE, CALL STARTARENA ON CUTSCENE FINISH
+        CallbackHandler.instance.ShowEndScreen(EndState.Killed);
+        Invoke("StartArena", 5.0f);
     }
 
     private void OnDrawGizmos()

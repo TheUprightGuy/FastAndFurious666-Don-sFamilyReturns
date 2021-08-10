@@ -31,8 +31,16 @@ public class RocketProjectile : MonoBehaviour
     {
         speed += Time.deltaTime;
 
-        Vector3 dir = Vector3.Normalize(new Vector3(target.position.x, 0, target.position.z) - new Vector3(this.transform.position.x, 0, this.transform.position.z));
-        rb.MoveRotation(Quaternion.LookRotation(dir));
+        if (target != null)
+        {
+            Vector3 dir = Vector3.Normalize(new Vector3(target.position.x, 0, target.position.z) - new Vector3(this.transform.position.x, 0, this.transform.position.z));
+            rb.MoveRotation(Quaternion.LookRotation(dir));
+        }
+        else
+        {
+            Vector3 dir = transform.forward;
+            rb.MoveRotation(Quaternion.LookRotation(dir));
+        }
 
         rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
     }
@@ -42,7 +50,9 @@ public class RocketProjectile : MonoBehaviour
         Debug.Log("Collided with " + other.name);
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity, null);
         Destroy(explosion, 4.0f);
-        other.GetComponent<HealthAttribute>().TakeDamage(damage);
+
+        if (other.GetComponent<HealthAttribute>())
+            other.GetComponent<HealthAttribute>().TakeDamage(damage, true);
 
         Destroy(this.gameObject);
     }

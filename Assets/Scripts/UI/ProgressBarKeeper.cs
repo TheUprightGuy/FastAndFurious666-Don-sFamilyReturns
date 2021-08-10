@@ -25,7 +25,8 @@ public class ProgressBarKeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetBar();
+        if (TrackPoint != null)
+            SetBar();
     }
 
     void SetBar()

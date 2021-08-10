@@ -512,7 +512,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &4428236411037445693
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 2510822058409842071, guid: e42a6a2b8baa89c4c87cd3a97a6bb979,
     type: 3}
-  maxHealth: 100
+  maxHealth: 30
   health: 100
 --- !u!1 &4621366921997816015
 GameObject:
@@ -5585,7 +5585,7 @@ MonoBehaviour:
   cooldown: 0
   ammo: 0
   maxAmmo: 10
-  damage: 5
+  damage: 8
 --- !u!1 &4621366922633421282
 GameObject:
   m_ObjectHideFlags: 0

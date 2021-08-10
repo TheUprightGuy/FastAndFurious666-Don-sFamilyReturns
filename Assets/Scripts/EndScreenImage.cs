@@ -11,7 +11,8 @@ public enum EndState
     Killed,
     Win,
     Lose,
-    Thanks
+    Thanks,
+    None
 }
 
 public class EndScreenImage : MonoBehaviour
@@ -40,7 +41,14 @@ public class EndScreenImage : MonoBehaviour
 
     public void ShowEndScreen(EndState _end)
     {
-        image.enabled = true;
-        image.sprite = endScreens[(int)_end];
+        if (_end == EndState.None)
+        {
+            image.enabled = false;
+        }
+        else
+        {
+            image.enabled = true;
+            image.sprite = endScreens[(int)_end];
+        }
     }
 }

@@ -18,8 +18,8 @@ public class HealthAttribute : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        TakeDamage(other.GetComponentInParent<Gun>().damage);
         Movement player = other.GetComponentInParent<Movement>();
+        TakeDamage(other.GetComponentInParent<Gun>().damage, true);
         if (player)
         {
             CarlAI temp = GetComponent<CarlAI>();
@@ -31,15 +31,35 @@ public class HealthAttribute : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int _damage)
+    public void TakeDamage(int _damage, bool _player)
     {
         //Debug.Log("Took " + _damage + " damage.");
 
         health -= _damage;
+
+        if (GetComponent<Movement>())
+        {
+            CallbackHandler.instance.UpdateHealth((float)health / (float)maxHealth);
+        }
+
+
         if (health <= 0)
         {
             GameObject pfx = Instantiate(explosionPrefab, transform.position, Quaternion.identity, null);
             Destroy(pfx, 4.0f);
+
+            // Check to see if Player killed an AI
+            if (_player)
+                CallbackHandler.instance.HasKilled();
+
+            // Check if player was Killed
+            Movement player = GetComponent<Movement>();
+            if (player)
+                CallbackHandler.instance.ShowEndScreen(EndState.Lose);
+
+            // Check to see if any AI are alive
+            if (!player && !CallbackHandler.instance.CheckSurvivors())
+                CallbackHandler.instance.ShowEndScreen(EndState.Win);
 
             Destroy(this.gameObject);
         }
@@ -61,6 +81,6 @@ public class HealthAttribute : MonoBehaviour
             }
         }
 
-        TakeDamage(1);
+        TakeDamage(1, false);
     }
 }

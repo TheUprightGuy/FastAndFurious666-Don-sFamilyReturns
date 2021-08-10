@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
     public Transform DestinationMarker;
     public float Spacings;
     public int NumOfCols = 2;
-    List<GameObject> Placings = new List<GameObject>();
+    public List<GameObject> Placings = new List<GameObject>();
 
     [Header("Levels")]
     public GameObject ExitingLevel;
@@ -29,11 +29,7 @@ public class Portal : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.KeypadMultiply))
-        {
-            Placings.Add(player);
-            TriggerPortal();
-        }
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -54,7 +50,7 @@ public class Portal : MonoBehaviour
         //    CallbackHandler.instance.ShowEndScreen(EndState.Killed);
     }
 
-    void TriggerPortal()
+    public void TriggerPortal()
     {
         //Get AI not yet in portal
         if (AIContainer != null)
@@ -69,17 +65,29 @@ public class Portal : MonoBehaviour
             }
         }
 
-        //Preset positioning and rotation
         for (int i = 0; i < Placings.Count; i++)
         {
-            float placing = Placings.Count - i;
-            int y = Mathf.FloorToInt(placing / NumOfCols);
-            int x = i - (y * NumOfCols);
+            int iPlace = Placings.Count - i;
+            int y = Mathf.FloorToInt(iPlace / NumOfCols);
+            int x = iPlace - (y * NumOfCols);
             Vector3 pos = new Vector3(x * Spacings, 0.0f, y * Spacings) + DestinationMarker.transform.position;
+            
             Placings[i].transform.position = pos;
             Placings[i].transform.forward = DestinationMarker.transform.forward;
-
         }
+
+        ////Preset positioning and rotation
+        //for (int i = 0; i < Placings.Count; i++)
+        //{
+        //    float placing = Placings.Count - i;
+
+        //    int y = Mathf.FloorToInt(placing / NumOfCols);
+        //    int x =  (y * NumOfCols) - i;
+        //    Vector3 pos = new Vector3(x * Spacings, 0.0f, y * Spacings) + DestinationMarker.transform.position;
+        //    Placings[i].transform.position = pos;
+        //    Placings[i].transform.forward = DestinationMarker.transform.forward;
+
+        //}
 
         RoadUtilities.instance.SetRoad(EnteringLevel.GetComponentInChildren<LineRenderer>());
 

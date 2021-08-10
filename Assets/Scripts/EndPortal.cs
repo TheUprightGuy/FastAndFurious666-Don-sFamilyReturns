@@ -26,11 +26,7 @@ public class EndPortal : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.KeypadMinus))
-        {
-            TriggerPortal();
-            StartArena();
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +44,7 @@ public class EndPortal : MonoBehaviour
         }
     }
 
-    void StartArena()
+    public void StartArena()
     {
         player.SetActive(true);
 
@@ -68,7 +64,7 @@ public class EndPortal : MonoBehaviour
         }
     }
 
-    void TriggerPortal()
+    public void TriggerPortal()
     {
         player.SetActive(false);
         
@@ -90,22 +86,26 @@ public class EndPortal : MonoBehaviour
         //Get AI not yet in portal
         if (AIContainer != null)
         {
-
             int aiCount = AIContainer.transform.childCount;
-            float spacing = 360.0f / aiCount;
+            float spacing = 360.0f / (aiCount+1);
 
-            player.transform.position = new Vector3(
-                    Radius * Mathf.Cos((aiCount * spacing) * Mathf.Deg2Rad),
+            Vector3 newPos =new Vector3(
+                    Radius * Mathf.Cos(((0) * spacing) * Mathf.Deg2Rad),
                     0.0f,
-                    Radius * Mathf.Sin((aiCount * spacing) * Mathf.Deg2Rad)) + DestinationMarker.transform.position; //placements
+                    Radius * Mathf.Sin(((0) * spacing) * Mathf.Deg2Rad)) + DestinationMarker.transform.position; //placements
+            player.transform.position = newPos;
+            player.transform.forward = EnteringLevel.transform.position - newPos;
 
-            for (int i = 0; i < aiCount - 1; i++)
+            for (int i = 1; i < aiCount+1; i++)
+
             {
-                AIContainer.transform.GetChild(i).gameObject.SetActive(false); //Turn off
-                AIContainer.transform.GetChild(i).transform.position = new Vector3(
+                AIContainer.transform.GetChild(i-1).gameObject.SetActive(false); //Turn off
+                newPos = new Vector3(
                     Radius * Mathf.Cos((i * spacing) * Mathf.Deg2Rad),
                     0.0f,
                     Radius * Mathf.Sin((i * spacing) * Mathf.Deg2Rad)) + DestinationMarker.transform.position; //placements
+                AIContainer.transform.GetChild(i - 1).transform.position = newPos;
+                AIContainer.transform.GetChild(i - 1).transform.forward = EnteringLevel.transform.position - newPos;
             }
         }
 

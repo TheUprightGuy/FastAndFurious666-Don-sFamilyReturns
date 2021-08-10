@@ -11,9 +11,9 @@ public class RoadGenerator : MonoBehaviour
     public RoadUtilities RoadUtils = null;
     public Transform EndPoint = null;
 
-    [Header("Corner tires")]
+    [Header("Decorations")]
     public GameObject tireStackPrefab;
-
+    public TreeGenerator TreeGen;
 
     [Header("Portal")]
     public GameObject portal;
@@ -99,7 +99,14 @@ public class RoadGenerator : MonoBehaviour
 
         PlaceItemDrops();
 
+        if (TreeGen != null)
+        {
+            TreeGen.CommitDeforestation();
+
+        }
+        
         PlacePortal();
+
     }
 
     void PlacePortal()

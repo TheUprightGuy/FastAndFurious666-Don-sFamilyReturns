@@ -53,8 +53,14 @@ public class RoadGenerator : MonoBehaviour
     public float XChangeMax = 10.0f;
 
     // Start is called before the first frame update
-    void Start()
+    public void LoadRoad()
     {
+        LineRenderer cacheLR = null;
+        if (RoadUtilities.instance.lineRenderer !=null)
+        {
+            cacheLR = RoadUtilities.instance.lineRenderer;
+        }
+        
         RoadUtilities.instance.SetRoad(GetComponent<LineRenderer>());
         RoadUtils = RoadUtilities.instance;
         Debug.Log("Building road...");
@@ -79,6 +85,10 @@ public class RoadGenerator : MonoBehaviour
             Debug.Log("Added accesories in " + ((Time.realtimeSinceStartup - timeSpent) * 100.0f).ToString());
         }
 
+        if (cacheLR != null)
+        {
+            RoadUtilities.instance.SetRoad(cacheLR);
+        }
     }
 
 

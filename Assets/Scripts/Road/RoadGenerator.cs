@@ -99,12 +99,12 @@ public class RoadGenerator : MonoBehaviour
 
         PlaceItemDrops();
 
-        //if (TreeGen != null)
-        //{
-        //    TreeGen.CommitDeforestation();
+        if (TreeGen != null)
+        {
+            TreeGen.CommitDeforestation();
 
-        //}
-        
+        }
+
         PlacePortal();
 
     }

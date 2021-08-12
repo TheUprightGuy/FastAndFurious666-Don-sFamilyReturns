@@ -72,8 +72,8 @@ public class EndPortal : MonoBehaviour
 
     public void TriggerPortal()
     {
-        player.SetActive(false);
         player.GetComponentInChildren<Gun>().ToggleWeapon(GunType.None);
+        player.SetActive(false);
         CallbackHandler.instance.ToggleFreeze(true);
 
         // Check to see if any AI are alive - if all are dead trigger you win

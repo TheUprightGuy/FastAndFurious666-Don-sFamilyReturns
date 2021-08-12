@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48559752, g: 0.7114418, b: 0.84924924, a: 1}
+  m_IndirectSpecularColor: {r: 0.9726588, g: 0.5117188, b: 0.5009776, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1990,10 +1990,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcec53481f3c4e04eac0e8ea8789deef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeedMin: 25
-  MaxSpeedMax: 25
+  MaxSpeedMin: 20
+  MaxSpeedMax: 40
   AccelerationMin: 20
-  AccelerationMax: 30
+  AccelerationMax: 40
   BrakeSpeedMin: 20
   BrakeSpeedMax: 30
 --- !u!1 &574713139 stripped

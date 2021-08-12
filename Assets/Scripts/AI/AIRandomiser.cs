@@ -15,12 +15,12 @@ public class AIRandomiser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        RandomiseChildren();
     }
 
     void RandomiseChildren()
     {
-        foreach (CarlAI ai in transform)
+        foreach (CarlAI ai in transform.GetComponentsInChildren<CarlAI>())
         {
             ai.BrakeSpeed = Random.Range(BrakeSpeedMin, BrakeSpeedMax);
             ai.MoveAcceleration = Random.Range(AccelerationMin, AccelerationMax);

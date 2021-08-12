@@ -65,8 +65,7 @@ public class EndPortal : MonoBehaviour
                 ai.gameObject.SetActive(true);
                 ai.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 ai.GetComponent<CarlAI>().RoadUtils = null;
-            }
-            
+            }  
         }
     }
 
@@ -83,7 +82,7 @@ public class EndPortal : MonoBehaviour
 
             CallbackHandler.instance.ToggleFreeze(true);
             // Delay - Go to next screen, show ty message
-            Invoke("ShowThankYou", 5.0f);
+            CallbackHandler.instance.DisplayThankYou();
         }
 
         if (!CallbackHandler.instance.GetKilled()) //Check for bad deeds on the player in here
@@ -145,7 +144,7 @@ public class EndPortal : MonoBehaviour
         }
 
         // Delay - Go to next screen, show ty message
-        Invoke("ShowThankYou", 5.0f);
+        CallbackHandler.instance.DisplayThankYou();
     }
 
     void ShowThankYou()

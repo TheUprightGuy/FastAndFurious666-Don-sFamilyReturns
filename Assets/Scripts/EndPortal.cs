@@ -71,7 +71,9 @@ public class EndPortal : MonoBehaviour
 
     public void TriggerPortal()
     {
-        player.GetComponentInChildren<Gun>().ToggleWeapon(GunType.None);
+        if (player.GetComponentInChildren<Weapons>())
+            player.GetComponentInChildren<Weapons>().EnableWeapon(GunType.None);
+
         player.SetActive(false);
         CallbackHandler.instance.ToggleFreeze(true);
 

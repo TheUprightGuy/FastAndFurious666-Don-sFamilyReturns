@@ -68,11 +68,17 @@ public class CallbackHandler : MonoBehaviour
     public void DisplayThankYou()
     {
         Invoke("ThankYou", 5.0f);
+        Invoke("MainMenu", 10.0f);
     }
 
     void ThankYou()
     {
         ShowEndScreen(EndState.Thanks);
+    }
+
+    void MainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
 

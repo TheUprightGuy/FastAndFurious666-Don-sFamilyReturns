@@ -73,6 +73,7 @@ public class EndPortal : MonoBehaviour
     public void TriggerPortal()
     {
         player.SetActive(false);
+        player.GetComponentInChildren<Gun>().ToggleWeapon(GunType.None);
         CallbackHandler.instance.ToggleFreeze(true);
 
         // Check to see if any AI are alive - if all are dead trigger you win
@@ -140,7 +141,7 @@ public class EndPortal : MonoBehaviour
         }
         else
         {
-            CallbackHandler.instance.ShowEndScreen(EndState.Last);
+            CallbackHandler.instance.ShowEndScreen(EndState.SecondThird);
         }
 
         // Delay - Go to next screen, show ty message
@@ -156,6 +157,7 @@ public class EndPortal : MonoBehaviour
     {
         //TRIGGER CUTSCENE HERE, CALL STARTARENA ON CUTSCENE FINISH
         CallbackHandler.instance.ShowEndScreen(EndState.Killed);
+        AudioHandler.instance.ToggleBGM();
         Invoke("StartArena", 5.0f);
     }
 

@@ -53,7 +53,10 @@ public class Movement : MonoBehaviour
     void Update()
     {
         if (freeze)
+        {
+            ToggleSkids(false);
             return;
+        }
 
         onRoad = RoadUtilities.instance.IsOnLine(transform.position);
 

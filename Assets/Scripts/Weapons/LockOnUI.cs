@@ -57,7 +57,7 @@ public class LockOnUI : MonoBehaviour
     {
         image.enabled = target;
 
-        if (target && target.gameObject != null)
+        if (target && target.gameObject != null && target.gameObject.activeSelf)
         {
             tracking = Camera.main.WorldToViewportPoint(target.transform.position);
             tracking.x *= Screen.width;

@@ -16,6 +16,9 @@ public class AudioHandler : MonoBehaviour
         instance = this;
     }
 
+    [Header("BGM")]
+    public AudioSource gameBGM;
+    public AudioSource robBGM;
     [Header("Powerups & Upgrades")]
     public AudioSource chassisUpgrade;
     public AudioSource weaponsUpgrade;
@@ -119,5 +122,26 @@ public class AudioHandler : MonoBehaviour
                 break;
             }
         }
+    }
+
+    IEnumerator BlendAudio()
+    {
+        while (gameBGM.volume > 0 )
+        {
+            gameBGM.volume -= 0.01f;
+            gameBGM.volume = Mathf.Clamp(gameBGM.volume, 0.0f, 0.3f);
+            robBGM.volume += 0.01f;
+            robBGM.volume = Mathf.Clamp(robBGM.volume, 0.0f, 0.3f);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameBGM.Stop();
+    }
+
+    public void ToggleBGM()
+    {
+        robBGM.Play();
+        StopAllCoroutines();
+        StartCoroutine("BlendAudio");
     }
 }

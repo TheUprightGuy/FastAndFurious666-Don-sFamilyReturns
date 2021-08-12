@@ -52,6 +52,7 @@ public class EndPortal : MonoBehaviour
     {
         player.SetActive(true);
         CallbackHandler.instance.ShowEndScreen(EndState.None);
+        CallbackHandler.instance.ToggleFreeze(false);
 
         //Setup next level environment
         ExitingLevel.SetActive(false);
@@ -72,6 +73,17 @@ public class EndPortal : MonoBehaviour
     public void TriggerPortal()
     {
         player.SetActive(false);
+        CallbackHandler.instance.ToggleFreeze(true);
+
+        // Check to see if any AI are alive - if all are dead trigger you win
+        if (!CallbackHandler.instance.CheckSurvivors())
+        {
+            CallbackHandler.instance.ShowEndScreen(EndState.Win);
+
+            CallbackHandler.instance.ToggleFreeze(true);
+            // Delay - Go to next screen, show ty message
+            Invoke("ShowThankYou", 5.0f);
+        }
 
         if (!CallbackHandler.instance.GetKilled()) //Check for bad deeds on the player in here
         {

@@ -42,11 +42,39 @@ public class CallbackHandler : MonoBehaviour
     public GameObject AIContainer;
     public bool CheckSurvivors()
     {
-        if (AIContainer.transform.childCount > 1)
-            return true;
+        if (AIContainer.transform.childCount <= 0)
+            return false;
 
-        return false;
+        return true;
     }
+
+    public void DoubleCheckSurvivors()
+    {
+        Invoke("DoubleCheck", 1.0f);
+    }
+
+    void DoubleCheck()
+    {
+        if (!CheckSurvivors())
+        {
+            ShowEndScreen(EndState.Win);
+
+            ToggleFreeze(true);
+            // Delay - Go to next screen, show ty message
+            DisplayThankYou();
+        }
+    }
+
+    public void DisplayThankYou()
+    {
+        Invoke("ThankYou", 5.0f);
+    }
+
+    void ThankYou()
+    {
+        ShowEndScreen(EndState.Thanks);
+    }
+
 
     #region UICallbacks
     public Action<float, float> updateSpeedometer;

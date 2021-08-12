@@ -26,7 +26,7 @@ public class Upgrade : MonoBehaviour
                 case UpgradeType.Chassis:
                 {
                     HealthAttribute health = other.GetComponent<HealthAttribute>();
-                    health.maxHealth += 50;
+                    health.maxHealth += 15;
                     health.health = health.maxHealth;
                         health.TakeDamage(0, false);
 

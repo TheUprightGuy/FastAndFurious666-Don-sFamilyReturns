@@ -542,6 +542,7 @@ MonoBehaviour:
   brakingMat: {fileID: 2100000, guid: 1792d3a649280694ca12ed3a1b2afe14, type: 2}
   speedForce: 600
   maxSpeed: 35
+  angle: 0
   skidClouds:
   - {fileID: 4621366924041579996}
   - {fileID: 4621366922640560192}
@@ -9369,7 +9370,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 55
+      m_Bits: 439
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -24492,7 +24493,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -24600,7 +24601,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 55
+      m_Bits: 439
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

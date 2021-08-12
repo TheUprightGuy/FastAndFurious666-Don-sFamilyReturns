@@ -55,14 +55,22 @@ public class HealthAttribute : MonoBehaviour
             // Check if player was Killed
             Movement player = GetComponent<Movement>();
             if (player)
-                CallbackHandler.instance.ShowEndScreen(EndState.Lose);
-
-            // Check to see if any AI are alive
-            if (!player && !CallbackHandler.instance.CheckSurvivors())
-                CallbackHandler.instance.ShowEndScreen(EndState.Win);
-
-            Destroy(this.gameObject);
+            {
+                Invoke("ShowDeath", 2.0f);
+                CallbackHandler.instance.ToggleFreeze(true);            
+            }
+            else
+            {
+                CallbackHandler.instance.DoubleCheckSurvivors();
+                Destroy(this.gameObject);
+            }  
         }
+    }   
+
+    void ShowDeath()
+    {
+        CallbackHandler.instance.ShowEndScreen(EndState.Lose);// Delay - Go to next screen, show ty message
+        CallbackHandler.instance.DisplayThankYou();
     }
 
     private void OnCollisionEnter(Collision collision)

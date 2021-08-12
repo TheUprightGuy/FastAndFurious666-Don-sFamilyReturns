@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
 
     // Local Variables
     Rigidbody rb;
-    float angle;
+    public float angle;
     float carRotation = 0.0f;
     bool reversing;
     CarAudio audio;
@@ -76,7 +76,7 @@ public class Movement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.W) )
         {
-            if (rb.velocity.magnitude < (onRoad ? maxSpeed : maxSpeed - 10.0f))
+            if (rb.velocity.magnitude < (onRoad ? maxSpeed : maxSpeed / 2.0f))
             {
                 float perc = rb.velocity.magnitude / maxSpeed;
                 rb.AddForce(transform.forward * speedForce * Time.deltaTime);
@@ -88,13 +88,13 @@ public class Movement : MonoBehaviour
             reversing = true;
 
             if (rb.velocity.magnitude < maxSpeed)
-                rb.AddForce(-transform.forward * speedForce * Time.deltaTime * 0.75f);
+                rb.AddForce(-transform.forward * (speedForce + 200) * Time.deltaTime);
         }
 
         // Rotation & Skids
         carRotation = Mathf.Clamp(carRotation, -20.0f, 20.0f);
         car.localRotation = Quaternion.Euler(0, carRotation, 0);
-        ToggleSkids(angle > 40.0f && rb.velocity.magnitude > 0.3f);
+        ToggleSkids(reversing ? (angle < 160.0f && rb.velocity.magnitude > 0.3f) : (angle > 40.0f && rb.velocity.magnitude > 0.3f));
 
 
         // TEMP INPUT

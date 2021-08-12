@@ -128,7 +128,10 @@ public class Gun : MonoBehaviour
     public void ToggleWeapon(GunType _type)
     {
         this.gameObject.SetActive(_type == type);
+        if (_type == type)
+            ammo = maxAmmo;
 
+        CallbackHandler.instance.ToggleRocket(false);
         if (_type == type && type == GunType.RocketLauncher)
         {
             CallbackHandler.instance.ToggleRocket(_type == type);
@@ -140,25 +143,25 @@ public class Gun : MonoBehaviour
         switch (type)
         {
             case GunType.MachineGun:
-                {
-                    damage += Mathf.RoundToInt(damage / 5.0f);
-                    maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
-                    ammo = maxAmmo;
-                    break;
-                }
+            {
+                damage += Mathf.RoundToInt(damage / 5.0f);
+                maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
+                ammo = maxAmmo;
+                break;
+            }
             case GunType.FlameThrower:
-                {
-                    maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
-                    ammo = maxAmmo;
-                    break;
-                }
+            {
+                maxAmmo += Mathf.RoundToInt(maxAmmo / 5.0f);
+                ammo = maxAmmo;
+                break;
+            }
             case GunType.RocketLauncher:
-                {
-                    cooldown -= 0.2f;
-                    maxAmmo += 2;
-                    ammo = maxAmmo;
-                    break;
-                }
+            {
+                cooldown -= 0.2f;
+                maxAmmo += 2;
+                ammo = maxAmmo;
+                break;
+            }
         }
 
     }

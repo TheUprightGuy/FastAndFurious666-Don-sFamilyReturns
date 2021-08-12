@@ -39,6 +39,15 @@ public class LockOnUI : MonoBehaviour
 
     public void ToggleRocket(bool _toggle)
     {
+        if (_toggle)
+        {
+            TurnOnText();
+        }
+        else
+        {
+            TurnOffText();
+        }
+        image.enabled = _toggle;
         this.enabled = _toggle;
     }
 
